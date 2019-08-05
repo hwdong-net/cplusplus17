@@ -18,7 +18,7 @@ void hideCursor() {
 inline int random_int(const int x_min, const int x_max) {
 	static bool is_seeded = false;
 	if (!is_seeded) {
-		srand((unsigned)time(0));  //Éú³ÉËæ»úÊıÖÖ×Ó
+		srand((unsigned)time(0));  //ç”Ÿæˆéšæœºæ•°ç§å­
 		is_seeded = true;
 	}
 	return rand() % (x_max - x_min) + x_min;
@@ -28,28 +28,28 @@ inline int random_int(const int x_min, const int x_max) {
 using Color = unsigned char;
 
 class Canvas {
-	int width{ 60 }, height{ 50 }; //´°¿Ú
+	int width{ 60 }, height{ 50 }; //çª—å£
 	Color bg_color{ ' ' };
-	Color *frame_buffer{ nullptr }; //Ö¡»º´æ£¬²ÊÉ«Í¼ÏñµÄÏÔÊ¾Æ÷ÄÚ´æ
+	Color *frame_buffer{ nullptr }; //å¸§ç¼“å­˜ï¼Œå½©è‰²å›¾åƒçš„æ˜¾ç¤ºå™¨å†…å­˜
 public:
 	Canvas(int w, int h, Color bgColor)
 		:width{ w }, height{ h }, bg_color{ bgColor },
 		frame_buffer{ new Color[w*h] }{}
 
 
-	//»æÖÆÒ»¸ö(x,y)´¦µÄÏñËØ£¬¼´¸ø¸ÃÏñËØÒ»¸öÑÕÉ«Color
+	//ç»˜åˆ¶ä¸€ä¸ª(x,y)å¤„çš„åƒç´ ï¼Œå³ç»™è¯¥åƒç´ ä¸€ä¸ªé¢œè‰²Color
 	void set_pixel(int x, int y, Color color) {
 		auto k = y * width + x;
 		frame_buffer[k] = color;
 	}
 
-	//²éÑ¯(x,y)´¦ÏñËØµÄÑÕÉ«
+	//æŸ¥è¯¢(x,y)å¤„åƒç´ çš„é¢œè‰²
 	Color get_pixel(const int x, const int y) const {
 		auto k = y * width + x;
 		return frame_buffer[k];
 	}
 
-	//---------Çå¿Õ»­²¼--------
+	//---------æ¸…ç©ºç”»å¸ƒ--------
 	void clear() {
 		if (!frame_buffer) return;
 		auto n = width * height;
@@ -57,7 +57,7 @@ public:
 			frame_buffer[i] = bg_color;
 	}
 
-	//--------ÏÔÊ¾»­²¼canvasÖĞµÄÄÚÈİ
+	//--------æ˜¾ç¤ºç”»å¸ƒcanvasä¸­çš„å†…å®¹
 	void show() {
 		for (auto y = 0, k = 0; y < height; y++) {
 			for (auto x = 0; x < width; x++, k++)
@@ -71,7 +71,7 @@ public:
 	Color get_bg_color() { return bg_color; }
 };
 
-//±íÊ¾2Î¬×ø±êµã»òÏòÁ¿
+//è¡¨ç¤º2ç»´åæ ‡ç‚¹æˆ–å‘é‡
 using T = int;
 class Vector2 {
 	T x{ 0 }, y{ 0 };
@@ -80,16 +80,16 @@ public:
 	T& operator[](int i) {
 		if (i == 0) return x;
 		else if (i == 1) return y;
-		else throw "ÏÂ±ê·Ç·¨";
+		else throw "ä¸‹æ ‡éæ³•";
 	}
 	T operator[](const int i) const {
 		if (i == 0) return x;
 		else if (i == 1) return y;
-		else throw "ÏÂ±ê·Ç·¨";
+		else throw "ä¸‹æ ‡éæ³•";
 	}
 };
 
-//°üÎ§¾ØĞÎ
+//åŒ…å›´çŸ©å½¢
 class Rect{	
 public:
 	Vector2 pos, size;
@@ -114,13 +114,13 @@ const Color background_color = ' ';
 
 
 
-//¾«Áé
+//ç²¾çµ
 class Sprite {
 protected:	
 	Canvas *canvas{ nullptr };
-	Vector2 pos, vel,size_;//Î»ÖÃ¡¢ËÙ¶È¡¢´óĞ¡
-	Color color;  //ÑÕÉ«
-	int lives{1};//ÉúÃüÖµ
+	Vector2 pos, vel,size_;//ä½ç½®ã€é€Ÿåº¦ã€å¤§å°
+	Color color;  //é¢œè‰²
+	int lives{1};//ç”Ÿå‘½å€¼
 	Rect rect;
 public:
 	Sprite(Canvas *canvas,const Color c, const Vector2 p,
@@ -211,7 +211,7 @@ public:
 	ElemType get(const int i)const {
 		if(i>=0&&i<n)
 			return data[i];
-		throw "ÏÂ±ê·Ç·¨£¡\n";
+		throw "ä¸‹æ ‡éæ³•ï¼\n";
 	}
 	ElemType get(const int i,const ElemType &e)const {
 		if (i >= 0 && i < n)
@@ -220,11 +220,11 @@ public:
 
 	ElemType& operator[](int i) {
 		if (i >= 0 && i < n) return data[i];		
-		else throw "ÏÂ±ê·Ç·¨";
+		else throw "ä¸‹æ ‡éæ³•";
 	}
 	ElemType operator[](const int i) const {
 		if (i >= 0 && i < n) return data[i];
-		else throw "ÏÂ±ê·Ç·¨";
+		else throw "ä¸‹æ ‡éæ³•";
 	}
 
 	bool add_capacity(){
@@ -242,7 +242,7 @@ public:
 };
 
 
-//ÓÎÏ·ÒıÇæÀà
+//æ¸¸æˆå¼•æ“ç±»
 #include<string>
 
 class GameEngine {
@@ -269,7 +269,7 @@ public:
 	}
 
 	virtual void processEvent() {
-		//  ´¦ÀíÊÂ¼ş
+		//  å¤„ç†äº‹ä»¶
 		char key;
 		if (_kbhit()) {
 			key = _getch();
@@ -382,7 +382,7 @@ using namespace std::chrono;
 
 class Enemy :public Flighter {
 protected:	
-	int bullet_num{ 0 };//¼ÙÈçÃ¿´ÎÁ¬Ğø·¢Éä5·¨×Óµ¯
+	int bullet_num{ 0 };//å‡å¦‚æ¯æ¬¡è¿ç»­å‘å°„5æ³•å­å¼¹
 	high_resolution_clock::time_point shot_start{ high_resolution_clock::now() };
 	high_resolution_clock::time_point shot_last{ shot_start };
 	high_resolution_clock::time_point move_start{shot_start};
@@ -402,9 +402,9 @@ public:
 	}
 
 	virtual void update() {
-		//Ëæ»ú·¢Éä×Óµ¯		
+		//éšæœºå‘å°„å­å¼¹		
 		auto now = std::chrono::high_resolution_clock::now();
-		auto dur = now - shot_start; //³ÖĞøÊ±¼ä
+		auto dur = now - shot_start; //æŒç»­æ—¶é—´
 		auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
 		if (ms > 3000) {
 			bullet_num = 3;
@@ -415,12 +415,12 @@ public:
 			auto ms2 = std::chrono::duration_cast<std::chrono::milliseconds>(dur2).count();
 			if (ms2 > 100) {
 				shot_last = now;
-				shot(Vector2{ 0,1 }); //±ØĞë½«Õâ¸ö×Óµ¯ÔÚÒıÇæÀàµÄupdate()ÖĞ¼ÓÈë
+				shot(Vector2{ 0,1 }); //å¿…é¡»å°†è¿™ä¸ªå­å¼¹åœ¨å¼•æ“ç±»çš„update()ä¸­åŠ å…¥
 				bullet_num--;
 			}
 		}		
 		
-		auto dur_move = now - move_start; //³ÖĞøÊ±¼ä
+		auto dur_move = now - move_start; //æŒç»­æ—¶é—´
 		auto ms_move = std::chrono::duration_cast<std::chrono::milliseconds>(dur_move).count();
 		if (ms_move > 300) {
 			auto a = ms_move % 6;
@@ -434,7 +434,7 @@ public:
 
 		Flighter::update();
 	}
-	Bullet *get_bullet(){//·µ»ØbulletÖ¸Õë£¬²¢½«bulletÉèÖÃÎª¿ÕÖ¸Õë
+	Bullet *get_bullet(){//è¿”å›bulletæŒ‡é’ˆï¼Œå¹¶å°†bulletè®¾ç½®ä¸ºç©ºæŒ‡é’ˆ
 		Bullet *p = bullet;
 		bullet = 0;
 		return p;		
@@ -464,7 +464,7 @@ public:
 		sprites.push_back(player);
 
 #if 0
-		//Éú³ÉËæ»úµÄµĞ»úµÄÎ»ÖÃ
+		//ç”Ÿæˆéšæœºçš„æ•Œæœºçš„ä½ç½®
 		int x_off = 10,y_off = 5;
 		auto x_min{ x_off }, x_max{ canvas->get_width() - x_off },
 			y_min{ 1 }, y_max{ y_off };
@@ -485,17 +485,17 @@ public:
 			key = _getch();
 			if (key == 27) running = false;
 			if (key == ' ') {
-				//Éú³É×Óµ¯µÄÎ»ÖÃÕıºÃÔÚÕ½»úµÄÉÏ·½
+				//ç”Ÿæˆå­å¼¹çš„ä½ç½®æ­£å¥½åœ¨æˆ˜æœºçš„ä¸Šæ–¹
 				Bullet *bullet = player->shot(Vector2(0,-1));
 				bullets.push_back(bullet);
 				sprites.push_back(bullet);
 			}
 			else if (key == 'a' || key == 'A'||key== KEY_LEFT) {
-				player->move(Vector2(-1, 0));//Õ½»ú×óÒÆ			
+				player->move(Vector2(-1, 0));//æˆ˜æœºå·¦ç§»			
 
 			}
 			else if (key == 'd' || key == 'D' || key == KEY_RIGHT) {
-				player->move(Vector2(1, 0)); //Õ½»úÓÒÒÆ
+				player->move(Vector2(1, 0)); //æˆ˜æœºå³ç§»
 
 			}
 			else if (key == 'w' || key == 'W' || key == KEY_UP) {
@@ -518,7 +518,7 @@ public:
 		}
 
 		auto now = std::chrono::high_resolution_clock::now();
-		auto dur = now - create_enemy_start; //³ÖĞøÊ±¼ä
+		auto dur = now - create_enemy_start; //æŒç»­æ—¶é—´
 		auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur).count();
 		if (ms > 6000) {
 			create_enemy_start = now;
@@ -528,8 +528,8 @@ public:
 	}
 
 	void collosion() {
-		//¼ì²âÊÇ·ñÅö×²
-		//¼ì²âµĞ»úÊÇ·ñ±»×Óµ¯»÷ÖĞ»òºÍÎÒÕ½»úÅö×²
+		//æ£€æµ‹æ˜¯å¦ç¢°æ’
+		//æ£€æµ‹æ•Œæœºæ˜¯å¦è¢«å­å¼¹å‡»ä¸­æˆ–å’Œæˆ‘æˆ˜æœºç¢°æ’
 		for (auto i = 0; i < enemies.size(); i++) {
 			auto enemy = enemies[i];
 			if (player&&player->collide(enemy->get_rect())) {
@@ -545,7 +545,7 @@ public:
 				}
 			}
 		}
-		//¼ì²âÎÒÕ½»úÊÇ·ñ±»×Óµ¯»÷ÖĞ
+		//æ£€æµ‹æˆ‘æˆ˜æœºæ˜¯å¦è¢«å­å¼¹å‡»ä¸­
 		if (player) {
 			for (auto j = 0; j < enemy_bullets.size(); j++) {
 				auto bullet = enemy_bullets[j];
@@ -566,7 +566,7 @@ public:
 			}
 			else i++;
 		}
-		//ÔÚenemiesºÍbulletsÖĞÑ°ÕÒÒÑ¾­É¾³ıµÄ SpriteÖ¸Õë
+		//åœ¨enemieså’Œbulletsä¸­å¯»æ‰¾å·²ç»åˆ é™¤çš„ SpriteæŒ‡é’ˆ
 		for (auto i = 0; i < deads.size();i++ ) {
 			Sprite* p = deads[i];
 			auto deleted{ false };
@@ -591,9 +591,9 @@ public:
 	}
 
 	void create_enemies() {
-		//¿ªÊ¼Éú³ÉµĞ»ú
+		//å¼€å§‹ç”Ÿæˆæ•Œæœº
 		
-		//Éú³ÉËæ»úµÄµĞ»úµÄÎ»ÖÃ
+		//ç”Ÿæˆéšæœºçš„æ•Œæœºçš„ä½ç½®
 		int x_off = 10, y_off = 5;
 		auto x_min{ x_off }, x_max{ canvas->get_width() - x_off },
 			y_min{ 2}, y_max{ y_off };
@@ -603,14 +603,14 @@ public:
 		sprites.push_back(enemy);
 		enemies.push_back(enemy);
 
-		//ÔÙÉú³ÉÒ»¸öµĞ»ú
+		//å†ç”Ÿæˆä¸€ä¸ªæ•Œæœº
 		x = random_int(5, x - x_off);
 		y = random_int(y_min, y_max);
 		enemy = new Enemy(canvas, enemy_color, Vector2{ x,y });
 		sprites.push_back(enemy);
 		enemies.push_back(enemy);
 
-		//Éú³ÉµÚ3¸öµĞ»ú
+		//ç”Ÿæˆç¬¬3ä¸ªæ•Œæœº
 		x = random_int(x + x_off, canvas->get_width() - 5);
 		y = random_int(y_min, y_max);
 		enemy = new Enemy(canvas, enemy_color, Vector2{ x,y });
@@ -645,72 +645,72 @@ class Vector {
 	ElemType *data{ nullptr };
 	int  capacity{ 0 }, n{ 0 };
 public:
-	Vector(const int cap = 5)   //´´½¨ÈİÁ¿ÊÇcapµÄÒ»¸öÏßĞÔ±í
+	Vector(const int cap = 5)   //åˆ›å»ºå®¹é‡æ˜¯capçš„ä¸€ä¸ªçº¿æ€§è¡¨
 		:capacity{ cap }, data{ new ElemType[cap] }	{}
-	bool insert(const int i, const ElemType &e); //ÔÚi´¦²åÈëÔªËØ
-	bool erase(const int i);            //É¾³ıiÔªËØ
-	bool push_back(const ElemType &e); //±íµÄ×îºóÌí¼ÓÒ»¸öÔªËØ
-	bool pop_back();  //É¾³ı±íµÄ×îºóÔªËØ
+	bool insert(const int i, const ElemType &e); //åœ¨iå¤„æ’å…¥å…ƒç´ 
+	bool erase(const int i);            //åˆ é™¤iå…ƒç´ 
+	bool push_back(const ElemType &e); //è¡¨çš„æœ€åæ·»åŠ ä¸€ä¸ªå…ƒç´ 
+	bool pop_back();  //åˆ é™¤è¡¨çš„æœ€åå…ƒç´ 
 
-	bool get(const int i, ElemType &e)const; //¶ÁÈ¡iÔªËØ
-	bool set(const int i, const ElemType e);//ĞŞ¸ÄiÔªËØ	
-	int size() const { return n; }  //²éÑ¯±í³¤
+	bool get(const int i, ElemType &e)const; //è¯»å–iå…ƒç´ 
+	bool set(const int i, const ElemType e);//ä¿®æ”¹iå…ƒç´ 	
+	int size() const { return n; }  //æŸ¥è¯¢è¡¨é•¿
 private:
-	bool add_capacity();             //À©³äÈİÁ¿
+	bool add_capacity();             //æ‰©å……å®¹é‡
 };
 
 bool Vector::add_capacity() {
-	ElemType *temp = new ElemType[2 * capacity];//·ÖÅä¸ü´ó¿Õ¼ä
+	ElemType *temp = new ElemType[2 * capacity];//åˆ†é…æ›´å¤§ç©ºé—´
 	if (!temp) return false;      
-	for (auto i = 0; i < n; i++) {     //½«Ô­¿Õ¼ädataÊı¾İ¿½±´µ½ĞÂ¿Õ¼ätemp
+	for (auto i = 0; i < n; i++) {     //å°†åŸç©ºé—´dataæ•°æ®æ‹·è´åˆ°æ–°ç©ºé—´temp
 		temp[i] = data[i];
 	}
-	delete[] data;                //Ë«·½Ô­À´¿Õ¼äÄÚ´æ
-	data = temp;     //dataÖ¸ÏòĞÂµÄ¿Õ¼ätemp
-	capacity *= 2;      //ĞŞ¸ÄÈİÁ¿
+	delete[] data;                //åŒæ–¹åŸæ¥ç©ºé—´å†…å­˜
+	data = temp;     //dataæŒ‡å‘æ–°çš„ç©ºé—´temp
+	capacity *= 2;      //ä¿®æ”¹å®¹é‡
 	return true;
 }
 
 bool Vector::insert(const int i, const ElemType &e) {
-	if (i < 0 || i >= n) return false; //²åÈëÎ»ÖÃºÏ·¨Âğ£¿
-	if (n == capacity && !add_capacity()) //ÒÑÂú£¬Ôö¼ÓÈİÁ¿
+	if (i < 0 || i >= n) return false; //æ’å…¥ä½ç½®åˆæ³•å—ï¼Ÿ
+	if (n == capacity && !add_capacity()) //å·²æ»¡ï¼Œå¢åŠ å®¹é‡
 		return false;
-	for (auto j = n; j > i; j--)  //½«n-1µ½iµÄÔªËØ¶¼ÏòºóÒÆ¶¯Ò»¸öÎ»ÖÃ
+	for (auto j = n; j > i; j--)  //å°†n-1åˆ°içš„å…ƒç´ éƒ½å‘åç§»åŠ¨ä¸€ä¸ªä½ç½®
 		data[j] = data[j - 1];
 	data[i] = e; 
-	n++; //³õÑ§ÕßÍü¼ÇĞŞ¸Ä±í³¤
+	n++; //åˆå­¦è€…å¿˜è®°ä¿®æ”¹è¡¨é•¿
 	return true;
 }
 
 bool Vector::erase(const int i) {
-	if (i < 0 || i >= n) return false; //Î»ÖÃiºÏ·¨Âğ£¿
-	 //i+1µ½n-1ÔªËØÒÀ´ÎÏòÇ°ÒÆ¶¯Ò»¸öÎ»ÖÃ
+	if (i < 0 || i >= n) return false; //ä½ç½®iåˆæ³•å—ï¼Ÿ
+	 //i+1åˆ°n-1å…ƒç´ ä¾æ¬¡å‘å‰ç§»åŠ¨ä¸€ä¸ªä½ç½®
 	for (auto j = i; j < n - 1; j++) 
 		data[j] = data[j + 1];
-	n--;   //²»ÒªÍüÁË£º±í³¤±äÁ¿¼õÈ¥1¡£
+	n--;   //ä¸è¦å¿˜äº†ï¼šè¡¨é•¿å˜é‡å‡å»1ã€‚
 	return false;
 }
 
 bool Vector::push_back(const ElemType &e) {
-	if (n == capacity && !add_capacity()) //¿Õ¼äÂú¾ÍÀ©Èİ
+	if (n == capacity && !add_capacity()) //ç©ºé—´æ»¡å°±æ‰©å®¹
 		return false;
-	data[n++] = e; //e·ÅÈëÏÂ±ênÎ»ÖÃ£¬È»ºón++
+	data[n++] = e; //eæ”¾å…¥ä¸‹æ ‡nä½ç½®ï¼Œç„¶ån++
 	return true;
 }
 bool Vector::pop_back() {
-	if (n == 0) return false; //¿Õ±í
-	n--;   //n¼õÈ¥1¾ÍÏàµ±ÓÚÉ¾³ıÁË±íÎ²ÔªËØ
+	if (n == 0) return false; //ç©ºè¡¨
+	n--;   //nå‡å»1å°±ç›¸å½“äºåˆ é™¤äº†è¡¨å°¾å…ƒç´ 
 	return true;
 }
 
-//¶ÁÈ¡iÔªËØ
+//è¯»å–iå…ƒç´ 
 bool Vector::get(const int i, ElemType &e)const{
 	if (i >= 0 && i < n) {
 		e = data[i]; return true;
 	}
 	return false;
 }
-//ĞŞ¸ÄiÔªËØ
+//ä¿®æ”¹iå…ƒç´ 
 bool Vector::set(const int i, const ElemType e){
 	if (i >= 0 && i < n) {
 		data[i]=e; return true;
@@ -720,7 +720,7 @@ bool Vector::set(const int i, const ElemType e){
 
 #include <iostream>
 void input(ElemType &e) {
-	std::cout << "ÇëÊäÈëÍ¼ÊéµÄĞÅÏ¢£ºÊéÃû ×÷Õß ³ö°æÉç ¼Û¸ñ:\n";
+	std::cout << "è¯·è¾“å…¥å›¾ä¹¦çš„ä¿¡æ¯ï¼šä¹¦å ä½œè€… å‡ºç‰ˆç¤¾ ä»·æ ¼:\n";
 	std::cin >> e.name >> e.author >> e.publisher >> e.price;
 }
 void print(const ElemType &e) {
@@ -730,14 +730,14 @@ void print(const Vector &v) {
 	ElemType e;
 	for (auto i = 0; i != v.size(); i++) {
 		v.get(i, e);
-		print(e);//Êä³ö¸ÃÍ¼ÊéĞÅÏ¢
+		print(e);//è¾“å‡ºè¯¥å›¾ä¹¦ä¿¡æ¯
 	}
 	std::cout << std::endl;
 }
 
 void help() {
-	std::cout << "ÇëÊäÈëÃüÁî:i(²åÈë)¡¢e(É¾³ı)¡¢a(×·¼Ó)¡¢b(É¾³ı×îºóÔªËØ)¡¢\n";
-	std::cout << "s(ĞŞÉ¾³ıÄ³ĞòºÅÔªËØ)¡¢g(²éÑ¯Ä³ĞòºÅÔªËØ)¡¢p(´òÓ¡)\n";
+	std::cout << "è¯·è¾“å…¥å‘½ä»¤:i(æ’å…¥)ã€e(åˆ é™¤)ã€a(è¿½åŠ )ã€b(åˆ é™¤æœ€åå…ƒç´ )ã€\n";
+	std::cout << "s(ä¿®åˆ é™¤æŸåºå·å…ƒç´ )ã€g(æŸ¥è¯¢æŸåºå·å…ƒç´ )ã€p(æ‰“å°)\n";
 }
 int main() {
 	Vector books;
@@ -746,38 +746,38 @@ int main() {
 	help();
 	while (std::cin >> cmd) {
 		if (cmd == 27)break;
-		else if (cmd == 'I' || cmd == 'i') {//²åÈëÒ»±¾Í¼Êé
-			std::cout << "ÇëÊäÈë²åÈëµÄÎ»ÖÃ£¨´Ó0¿ªÊ¼£©£º";
+		else if (cmd == 'I' || cmd == 'i') {//æ’å…¥ä¸€æœ¬å›¾ä¹¦
+			std::cout << "è¯·è¾“å…¥æ’å…¥çš„ä½ç½®ï¼ˆä»0å¼€å§‹ï¼‰ï¼š";
 			int i; std::cin >> i;
 			input(e);
 			books.insert(i, e);
 		}
-		else if (cmd == 'e' || cmd == 'E') {//É¾³ıÒ»±¾Í¼Êé
-			std::cout << "ÇëÊäÈëÉ¾³ıµÄÎ»ÖÃ£¨´Ó0¿ªÊ¼£©£º";
+		else if (cmd == 'e' || cmd == 'E') {//åˆ é™¤ä¸€æœ¬å›¾ä¹¦
+			std::cout << "è¯·è¾“å…¥åˆ é™¤çš„ä½ç½®ï¼ˆä»0å¼€å§‹ï¼‰ï¼š";
 			int i; std::cin >> i;			
 			books.erase(i);
 		}
-		else if (cmd == 'a' || cmd == 'A') {//ÔÚ×îºó²åÈëÒ»±¾Í¼Êé
+		else if (cmd == 'a' || cmd == 'A') {//åœ¨æœ€åæ’å…¥ä¸€æœ¬å›¾ä¹¦
 			input(e);
 			books.push_back(e);
 		}
-		else if (cmd == 'b' || cmd == 'B') {//É¾³ı×îºóÒ»±¾Í¼Êé
+		else if (cmd == 'b' || cmd == 'B') {//åˆ é™¤æœ€åä¸€æœ¬å›¾ä¹¦
 			input(e);
 			books.pop_back();
 		}		
-		else if (cmd == 's' || cmd == 'S') {//ĞŞ¸ÄÄ³ĞòºÅµÄÍ¼Êé
-			std::cout << "ÇëÊäÈëÒªĞŞ¸ÄµÄÍ¼ÊéµÄÎ»ÖÃ£¨´Ó0¿ªÊ¼£©£º";
+		else if (cmd == 's' || cmd == 'S') {//ä¿®æ”¹æŸåºå·çš„å›¾ä¹¦
+			std::cout << "è¯·è¾“å…¥è¦ä¿®æ”¹çš„å›¾ä¹¦çš„ä½ç½®ï¼ˆä»0å¼€å§‹ï¼‰ï¼š";
 			int i; std::cin >> i;
 			input(e);
 			books.set(i, e);
 		}
-		else if (cmd == 'g' || cmd == 'G') {//²éÑ¯Ä³ĞòºÅµÄÍ¼Êé
-			std::cout << "ÇëÊäÈëÒª²éÑ¯µÄÍ¼ÊéµÄÎ»ÖÃ£¨´Ó0¿ªÊ¼£©£º";
+		else if (cmd == 'g' || cmd == 'G') {//æŸ¥è¯¢æŸåºå·çš„å›¾ä¹¦
+			std::cout << "è¯·è¾“å…¥è¦æŸ¥è¯¢çš„å›¾ä¹¦çš„ä½ç½®ï¼ˆä»0å¼€å§‹ï¼‰ï¼š";
 			int i; std::cin >> i;
 			books.get(i, e);
 			print(e);
 		}
-		else if (cmd == 'p' || cmd == 'P') {//ÏÔÊ¾ËùÓĞÍ¼Êé
+		else if (cmd == 'p' || cmd == 'P') {//æ˜¾ç¤ºæ‰€æœ‰å›¾ä¹¦
 			print(books);
 		}
 		help();
@@ -819,29 +819,29 @@ int main() {
 #endif 
 
 #if 0
-using ElemType = char; //¼ÙÉèÊı¾İÔªËØµÄÀàĞÍÊÇElemType
+using ElemType = char; //å‡è®¾æ•°æ®å…ƒç´ çš„ç±»å‹æ˜¯ElemType
 class List {	
-	struct LNode { //struct¶¨ÒåµÄÀàµÄ³ÉÔ±Ä¬ÈÏÊÇ¹«¿ªµÄ
+	struct LNode { //structå®šä¹‰çš„ç±»çš„æˆå‘˜é»˜è®¤æ˜¯å…¬å¼€çš„
 		ElemType data;
-		LNode *next{nullptr}; //nextÊÇÖ¸ÏòÏÂÒ»¸öÔªËØ½áµãµÄÖ¸Õë±äÁ¿
+		LNode *next{nullptr}; //nextæ˜¯æŒ‡å‘ä¸‹ä¸€ä¸ªå…ƒç´ ç»“ç‚¹çš„æŒ‡é’ˆå˜é‡
 	};
 	LNode *head;
 public:
-	//³õÊ¼»¯Ò»¸ö²»º¬ÈÎºÎÊı¾İÖ»ÓĞÍ·½áµãµÄ¿ÕµÄÁ´±í
+	//åˆå§‹åŒ–ä¸€ä¸ªä¸å«ä»»ä½•æ•°æ®åªæœ‰å¤´ç»“ç‚¹çš„ç©ºçš„é“¾è¡¨
 	List() :head{ new LNode{} } {}
 	
-	bool insert(const int i, const ElemType &e); //ÔÚi´¦²åÈëÔªËØ
-	bool erase(const int i);            //É¾³ıiÔªËØ
+	bool insert(const int i, const ElemType &e); //åœ¨iå¤„æ’å…¥å…ƒç´ 
+	bool erase(const int i);            //åˆ é™¤iå…ƒç´ 
 
-	bool push_back(const ElemType &e); //±íµÄ×îºóÌí¼ÓÒ»¸öÔªËØ
-	bool pop_back();  //É¾³ı±íµÄ×îºóÔªËØ
+	bool push_back(const ElemType &e); //è¡¨çš„æœ€åæ·»åŠ ä¸€ä¸ªå…ƒç´ 
+	bool pop_back();  //åˆ é™¤è¡¨çš„æœ€åå…ƒç´ 
 
-	bool push_front(const ElemType &e); //²åÈëÔªËØ³ÉÎªµÚÒ»¸öÔªËØ£¨Ê×½áµã£©
-	bool pop_front();  //É¾³ıÊ×½áµã
+	bool push_front(const ElemType &e); //æ’å…¥å…ƒç´ æˆä¸ºç¬¬ä¸€ä¸ªå…ƒç´ ï¼ˆé¦–ç»“ç‚¹ï¼‰
+	bool pop_front();  //åˆ é™¤é¦–ç»“ç‚¹
 
-	bool get(const int i, ElemType &e)const; //¶ÁÈ¡iÔªËØ
-	bool set(const int i, const ElemType e);//ĞŞ¸ÄiÔªËØ	
-	int size() const;  //²éÑ¯±í³¤
+	bool get(const int i, ElemType &e)const; //è¯»å–iå…ƒç´ 
+	bool set(const int i, const ElemType e);//ä¿®æ”¹iå…ƒç´ 	
+	int size() const;  //æŸ¥è¯¢è¡¨é•¿
 private:
 	LNode *locate(const int i )const;
 };
@@ -849,33 +849,33 @@ private:
 
 bool List::push_front(const ElemType &e) {
 	LNode *p = new LNode;
-	if (!p) return false; //·ÖÅäÄÚ´æÊ§°Ü!
+	if (!p) return false; //åˆ†é…å†…å­˜å¤±è´¥!
 	p->data = e;
-	p->next = head->next;//pµÄnextÖ¸ÕëÖ¸ÏòÔ­À´µÄÊ×½áµã
-	head->next = p; //headµÄnextÖ¸ÏòpÖ¸ÏòµÄĞÂ½áµã£¬¼´ĞÂ½áµã³ÉÎªÊ×½áµã¡£
+	p->next = head->next;//pçš„nextæŒ‡é’ˆæŒ‡å‘åŸæ¥çš„é¦–ç»“ç‚¹
+	head->next = p; //headçš„nextæŒ‡å‘pæŒ‡å‘çš„æ–°ç»“ç‚¹ï¼Œå³æ–°ç»“ç‚¹æˆä¸ºé¦–ç»“ç‚¹ã€‚
 }
 
 bool List::pop_front() {
-	if (!head->next) return false; //¿Õ±í
-	LNode *p = head->next; //pÖ¸ÏòÒªÉ¾³ıµÄÊ×½áµã
-	head->next = p->next;//headµÄnextÖ¸ÏòpµÄºóÒ»¸ö½áµã£¬¼´Ìø¹ıÊ×½áµã
-	delete p;//É¾³ıÔ­À´µÄÊ×½áµã
+	if (!head->next) return false; //ç©ºè¡¨
+	LNode *p = head->next; //pæŒ‡å‘è¦åˆ é™¤çš„é¦–ç»“ç‚¹
+	head->next = p->next;//headçš„nextæŒ‡å‘pçš„åä¸€ä¸ªç»“ç‚¹ï¼Œå³è·³è¿‡é¦–ç»“ç‚¹
+	delete p;//åˆ é™¤åŸæ¥çš„é¦–ç»“ç‚¹
 	return true;
 }
 int List::size()const {
-	LNode *p{head}; auto i{ 0 };//pÖ¸ÏòÍ·½áµã£¬¼ÆÊıÆ÷iÎ²0
-	p = p->next;  //pÖ¸ÏòÊ×½áµã£¬
-	while (p) { //p²»ÊÇ¿ÕÖ¸Õë£¬±íÊ¾Óöµ½Ò»¸ö½áµã
-		i++;  //¼ÆÊıÆ÷Ôö¼Ó1
-		p = p->next; //pÖ¸ÏòÏÂÒ»¸ö½áµã
+	LNode *p{head}; auto i{ 0 };//pæŒ‡å‘å¤´ç»“ç‚¹ï¼Œè®¡æ•°å™¨iå°¾0
+	p = p->next;  //pæŒ‡å‘é¦–ç»“ç‚¹ï¼Œ
+	while (p) { //pä¸æ˜¯ç©ºæŒ‡é’ˆï¼Œè¡¨ç¤ºé‡åˆ°ä¸€ä¸ªç»“ç‚¹
+		i++;  //è®¡æ•°å™¨å¢åŠ 1
+		p = p->next; //pæŒ‡å‘ä¸‹ä¸€ä¸ªç»“ç‚¹
 	}
 	return i;
 }
 List::LNode * List::locate(const int i)const{
-	if (i < 0) return nullptr;//²åÈëÎ»ÖÃ²»ºÏ·¨
-	LNode *p{ head }; auto j{ 0 };//pÖ¸ÏòÍ·½áµã£¬¼ÆÊıÆ÷iÎ²0
+	if (i < 0) return nullptr;//æ’å…¥ä½ç½®ä¸åˆæ³•
+	LNode *p{ head }; auto j{ 0 };//pæŒ‡å‘å¤´ç»“ç‚¹ï¼Œè®¡æ•°å™¨iå°¾0
 	while (p&&j < i ) {
-		p = p->next;  //pÖ¸ÏòÏÂÒ»¸ö½áµã
+		p = p->next;  //pæŒ‡å‘ä¸‹ä¸€ä¸ªç»“ç‚¹
 		j++;
 	}
 	return p;
@@ -883,32 +883,32 @@ List::LNode * List::locate(const int i)const{
 
 
 
-bool List::erase(const int i) {     //É¾³ıiÔªËØ
-	LNode *p = locate(i-1);//¶¨Î»i-1ºÅ½áµã	
-	if (p) {//pÖ¸ÏòµÄµÚi-1ºÅ½áµã´æÔÚ
-		LNode *q = p->next;//q±£´æÒªÉ¾³ıµÄ½áµãµØÖ·
-		p->next = q->next;//Ê¹pµÄnextÖ¸ÕëÌø¹ıq½áµã
-		delete q; // É¾³ıqÖ¸ÏòµÄÄÇ¸ö½áµã
+bool List::erase(const int i) {     //åˆ é™¤iå…ƒç´ 
+	LNode *p = locate(i-1);//å®šä½i-1å·ç»“ç‚¹	
+	if (p) {//pæŒ‡å‘çš„ç¬¬i-1å·ç»“ç‚¹å­˜åœ¨
+		LNode *q = p->next;//qä¿å­˜è¦åˆ é™¤çš„ç»“ç‚¹åœ°å€
+		p->next = q->next;//ä½¿pçš„nextæŒ‡é’ˆè·³è¿‡qç»“ç‚¹
+		delete q; // åˆ é™¤qæŒ‡å‘çš„é‚£ä¸ªç»“ç‚¹
 		return true;
 	}
-	return false; //i³¬³öÁË±í³¤
+	return false; //iè¶…å‡ºäº†è¡¨é•¿
 }
 
 bool List::insert(const int i, const ElemType &e) {
-	LNode *p = locate(i - 1);//¶¨Î»i-1ºÅ½áµã	
-	if (p) {//pÖ¸ÏòµÄµÚi-1ºÅ½áµã´æÔÚ
-		LNode *q = new LNode;//qÖ¸Ïò·ÖÅäµÄĞÂ½áµãÄÚ´æ¿é
+	LNode *p = locate(i - 1);//å®šä½i-1å·ç»“ç‚¹	
+	if (p) {//pæŒ‡å‘çš„ç¬¬i-1å·ç»“ç‚¹å­˜åœ¨
+		LNode *q = new LNode;//qæŒ‡å‘åˆ†é…çš„æ–°ç»“ç‚¹å†…å­˜å—
 		if (!q) return false;
 		q->data = e;
-		q->next = p->next; //½«pµÄºó¼Ì½áµã¹Òµ½qµÄºóÃæ
-		p->next = q;//½«qÖ¸ÏòµÄ½áµã¹Òµ½pµÄºóÃæ
+		q->next = p->next; //å°†pçš„åç»§ç»“ç‚¹æŒ‚åˆ°qçš„åé¢
+		p->next = q;//å°†qæŒ‡å‘çš„ç»“ç‚¹æŒ‚åˆ°pçš„åé¢
 		return true;
 	}
 	return false;
 }
 
 bool List::get(const int i, ElemType &e)const {
-	LNode *p = locate(i );//¶¨Î»iºÅ½áµã	
+	LNode *p = locate(i );//å®šä½iå·ç»“ç‚¹	
 	if (p) {
 		e = p->data; return true;
 	}
@@ -916,7 +916,7 @@ bool List::get(const int i, ElemType &e)const {
 
 }
 bool List::set(const int i, const ElemType e) {
-	LNode *p = locate(i);//¶¨Î»iºÅ½áµã	
+	LNode *p = locate(i);//å®šä½iå·ç»“ç‚¹	
 	if (p) {
 		p->data = e; return true;
 	}
