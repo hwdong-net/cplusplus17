@@ -1,3 +1,11 @@
+/* ----------hwdong的教学资源---------------
+   教学博客：https://hwdong.net
+   youtube频道： hwdong
+   twitter： hwdong
+   B站和微博：hw-dong
+   微信公众号：hwdong编程
+*/
+
 #if 0
 #include <iostream>
 #include <string>
@@ -282,6 +290,8 @@ int main()
 #include <iostream>
 #include <algorithm>
 #include <iterator>
+
+
 
 int main()
 {
