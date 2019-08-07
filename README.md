@@ -6,4 +6,5 @@
 - youtube频道： hwdong
 -  twitter： hwdong
 - B站和微博：hw-dong
+- qq群：101132160
 - 微信公众号：hwdong编程
