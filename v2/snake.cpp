@@ -3,7 +3,9 @@
    youtube频道： hwdong
    twitter： hwdong
    B站和微博：hw-dong
+   qq群：101132160
    微信公众号：hwdong编程
+   C++17从入门到精通（源代码）：https://github.com/hwdong-net/cplusplus17
 */
 
 #include <iostream>
@@ -233,11 +235,11 @@ void Snake::move() {
 }
 
 #include <windows.h>
-inline void gotoxy(int x, int y) {
+void gotoxy(int x, int y) {
 	COORD coord = { x, y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-inline void hideCursor() {
+void hideCursor() {
 	CONSOLE_CURSOR_INFO cursor_info = { 1, 0 };
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
@@ -348,10 +350,7 @@ public:
 	void quit() {}
 
 };
-
-#if 0
 int main() {
 	GameEngine game;
 	game.run();
 }
-#endif

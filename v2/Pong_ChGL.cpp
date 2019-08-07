@@ -3,13 +3,12 @@
    youtube频道： hwdong
    twitter： hwdong
    B站和微博：hw-dong
+   qq群：101132160
    微信公众号：hwdong编程
+   C++17从入门到精通（源代码）：https://github.com/hwdong-net/cplusplus17
 */
 
 #include <iostream>
-#if 1
-#include "ChGL.h"
-#else 
 using color = char;  //定义一个表示颜色的color类型，每种字符就是一种颜色
 color* framebuffer{ nullptr };          //帧缓冲器
 int framebuffer_width, framebuffer_height;
@@ -67,8 +66,6 @@ void setPixel(const int x, const int y, color c) {
 color getPixel(const int x, const int y) {
 	return framebuffer[y*framebuffer_width + x];
 }
-#endif
-
 
 
 #include <iostream>
@@ -164,11 +161,11 @@ void draw_sprites() {
 }
 
 
-inline void gotoxy(int x, int y) {
+void gotoxy(int x, int y) {
 	COORD coord = { x, y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-inline void hideCursor() {
+void hideCursor() {
 	CONSOLE_CURSOR_INFO cursor_info = { 1, 0 };
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
@@ -242,8 +239,3 @@ int Pong() {
 	return 0;
 }
 
-#if 0
-int main() {
-	return Pong();
-}
-#endif

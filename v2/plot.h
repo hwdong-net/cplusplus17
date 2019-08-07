@@ -1,3 +1,13 @@
+/* ----------hwdong的教学资源---------------
+   教学博客：https://hwdong.net
+   youtube频道： hwdong
+   twitter： hwdong
+   B站和微博：hw-dong
+   qq群：101132160
+   微信公众号：hwdong编程
+   C++17从入门到精通（源代码）：https://github.com/hwdong-net/cplusplus17
+*/
+
 #pragma once
 #include "ChGL.h"
 inline void min_max(double s[], const int n, double &min, double &max) {
