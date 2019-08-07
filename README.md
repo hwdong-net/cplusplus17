@@ -3,7 +3,7 @@
 ### 教学资源
 
 - 教学博客：https://hwdong.net
-- youtube频道： hwdong
+- youtube频道： [hwdong](https://www.youtube.com/channel/UCIJLimsCMSfc3wHmevgj8Ng)
 -  twitter： hwdong
 - B站和微博：hw-dong
 - qq群：101132160
