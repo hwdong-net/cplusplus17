@@ -9,6 +9,9 @@
 -  twitter： hwdong
 - B站和微博：[hw-dong](https://space.bilibili.com/281453312) 
 - qq群：101132160
+
+    <div align="center"> <img src="https://hwdong.net/img2/qq.jpg" width="200"/> </div><br>
+
 - 微信公众号：hwdong编程
 
    <div align="center"> <img src="https://hwdong.net/img2/hwdong_pro.jpg" width="200"/> </div><br>
