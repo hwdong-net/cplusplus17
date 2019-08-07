@@ -1,17 +1,9 @@
-/* ----------hwdongçš„æ•™å­¦èµ„æº---------------
-   æ•™å­¦åšå®¢ï¼šhttps://hwdong.net
-   youtubeé¢‘é“ï¼š hwdong
-   twitterï¼š hwdong
-   Bç«™å’Œå¾®åšï¼šhw-dong
-   å¾®ä¿¡å…¬ä¼—å·ï¼šhwdongç¼–ç¨‹
-*/
-
 #if 0
 #include <iostream>
 int main() {
 	std::cout << "hello world";
 	std::cout << std::endl;
-	std::cout << "æ•™å°ç™½ç²¾é€šç¼–ç¨‹";
+	std::cout << "½ÌĞ¡°×¾«Í¨±à³Ì";
 	return 0;
 }
 #endif
@@ -28,11 +20,11 @@ int main() {
 #include <iostream>
 using namespace std;
 int main() {
-	auto b = true;  // trueæ˜¯å¸ƒå°”ç±»å‹çš„ä¸€ä¸ªå€¼
-	auto ch{ 'x' };    // å•å¼•å·è¡¨ç¤ºçš„å­—ç¬¦â€™xâ€™å¯¹å˜é‡chåˆå§‹åŒ–
-	auto i = 123;   //123æ˜¯intæ•´å‹çš„å€¼
-	auto d{ 1.2 };   // 1.2è¡¨ç¤ºçš„æ˜¯doubleæµ®ç‚¹å‹çš„å€¼
-	auto z = d + i;   //ä»è¡¨è¾¾å¼d+içš„å€¼æ¨æ–­zçš„æ•°æ®ç±»å‹
+	auto b = true;  // trueÊÇ²¼¶ûÀàĞÍµÄÒ»¸öÖµ
+	auto ch{ 'x' };    // µ¥ÒıºÅ±íÊ¾µÄ×Ö·û¡¯x¡¯¶Ô±äÁ¿ch³õÊ¼»¯
+	auto i = 123;   //123ÊÇintÕûĞÍµÄÖµ
+	auto d{ 1.2 };   // 1.2±íÊ¾µÄÊÇdouble¸¡µãĞÍµÄÖµ
+	auto z = d + i;   //´Ó±í´ïÊ½d+iµÄÖµÍÆ¶ÏzµÄÊı¾İÀàĞÍ
 	cout << typeid(b).name() << '\t';
 	cout << typeid(ch).name() << '\t';
 	cout << typeid(i).name() << '\t';
@@ -49,18 +41,26 @@ int main() {
 	std::cout << s * s2;
 	std::cout<<3*s ;
 }
-#endif
+/* ----------hwdongµÄ½ÌÑ§×ÊÔ´---------------
+   ½ÌÑ§²©¿Í£ºhttps://hwdong.net
+   youtubeÆµµÀ£º hwdong
+   twitter£º hwdong
+   BÕ¾ºÍÎ¢²©£ºhw-dong
+   qqÈº£º101132160
+   Î¢ĞÅ¹«ÖÚºÅ£ºhwdong±à³Ì
+   C++17´ÓÈëÃÅµ½¾«Í¨£¨Ô´´úÂë£©£ºhttps://github.com/hwdong-net/cplusplus17
+*/
 
 #if 1
 #include <iostream>
 #include <bitset>
 int main_1() {
-	std::cout <<"åè¿›åˆ¶ï¼š" << std::dec << 0b101101011101100111100101 <<'\n'
-		<< "åå…­è¿›åˆ¶ï¼š" <<std::hex<< 0b101101011101100111100101 <<'\n'
-		<< "å…«è¿›åˆ¶ï¼š" << std::oct << 0b101101011101100111100101 << '\n';
+	std::cout <<"Ê®½øÖÆ£º" << std::dec << 0b101101011101100111100101 <<'\n'
+		<< "Ê®Áù½øÖÆ£º" <<std::hex<< 0b101101011101100111100101 <<'\n'
+		<< "°Ë½øÖÆ£º" << std::oct << 0b101101011101100111100101 << '\n';
 
 	
-	std::cout << "åè¿›åˆ¶ï¼š" << std::bitset<sizeof(unsigned int) * 8>(7654321) << std::endl;
+	std::cout << "Ê®½øÖÆ£º" << std::bitset<sizeof(unsigned int) * 8>(7654321) << std::endl;
 	return 0;
 }
 #endif
