@@ -18,7 +18,7 @@
    
 - C语言版数据结构（源代码）：[https://github.com/hwdong-net/ds/tree/master/C](https://github.com/hwdong-net/ds/tree/master//C)
 
-- C语言版数据结构（源代码）：[https://github.com/hwdong-net/ds/tree/master/cplusplus](https://github.com/hwdong-net/ds/tree/master/cplusplus)
+- C++版数据结构（源代码）：[https://github.com/hwdong-net/ds/tree/master/cplusplus](https://github.com/hwdong-net/ds/tree/master/cplusplus)
 
 - C++17从入门到精通（源代码）：[https://github.com/hwdong-net/cplusplus17](https://github.com/hwdong-net/cplusplus17)
 
