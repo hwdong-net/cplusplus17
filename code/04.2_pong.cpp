@@ -20,29 +20,29 @@ void hideCursor() {
 
 
 int main() {
-	//1. ³õÊ¼»¯ÓÎÏ·ÖĞµÄÊı¾İ
-	auto WIDTH{ 90 }, HEIGHT{ 25 }; //´°¿Ú³¤¿í
-	auto ball_x{ WIDTH / 2 }, ball_y{ HEIGHT / 2 }, ball_vec_x{ 0 }, ball_vec_y{ 0 }; //ÇòÎ»ÖÃ¼°ËÙ¶È
-	auto paddle_w{ 3 }, paddle_h{ 8 };   //µ²°åµÄ³¤¿í
-	auto paddle1_x{ 0 }, paddle1_y{ HEIGHT / 2 - paddle_h / 2 }, paddle1_vec{ 3 }; //µ²°å1Î»ÖÃ¼°ËÙ¶È
+	//1. åˆå§‹åŒ–æ¸¸æˆä¸­çš„æ•°æ®
+	auto WIDTH{ 90 }, HEIGHT{ 25 }; //çª—å£é•¿å®½
+	auto ball_x{ WIDTH / 2 }, ball_y{ HEIGHT / 2 }, ball_vec_x{ 0 }, ball_vec_y{ 0 }; //çƒä½ç½®åŠé€Ÿåº¦
+	auto paddle_w{ 3 }, paddle_h{ 8 };   //æŒ¡æ¿çš„é•¿å®½
+	auto paddle1_x{ 0 }, paddle1_y{ HEIGHT / 2 - paddle_h / 2 }, paddle1_vec{ 3 }; //æŒ¡æ¿1ä½ç½®åŠé€Ÿåº¦
 	auto paddle2_x{ WIDTH - paddle_w },
-		paddle2_y{ HEIGHT / 2 - paddle_h / 2 }, paddle2_vec{ 3 }; //µ²°å2Î»ÖÃ¼°ËÙ¶È
+		paddle2_y{ HEIGHT / 2 - paddle_h / 2 }, paddle2_vec{ 3 }; //æŒ¡æ¿2ä½ç½®åŠé€Ÿåº¦
 	auto score1{ 0 }, score2{ 0 }, score1_x{ paddle_w + 8 }, score1_y{ 2 },
 		score2_x{ WIDTH - 8 - paddle_w }, score2_y{ 2 };
 
 
-	srand((unsigned)time(0));  //Éú³ÉËæ»úÊıÖÖ×Ó	
-	ball_vec_x = rand() % 5 + 1; //Éú³ÉÒ»¸öËæ»úÕûÊı
+	srand((unsigned)time(0));  //ç”Ÿæˆéšæœºæ•°ç§å­	
+	ball_vec_x = rand() % 5 + 1; //ç”Ÿæˆä¸€ä¸ªéšæœºæ•´æ•°
 	ball_vec_y = rand() % 5 + 1;
 	if (rand() % 2 == 1) ball_vec_x = -ball_vec_x;
 	if (rand() % 2 == 1) ball_vec_y = -ball_vec_y;
 
 
 	while (true) {
-		// 1. ´¦ÀíÊÂ¼ş
+		// 1. å¤„ç†äº‹ä»¶
 		char key;
-		if (_kbhit()) {                          //¼üÅÌÓĞÊäÈë
-			key = _getch();                    //µÃµ½ÊäÈëµÄ¼üÖµ
+		if (_kbhit()) {                          //é”®ç›˜æœ‰è¾“å…¥
+			key = _getch();                    //å¾—åˆ°è¾“å…¥çš„é”®å€¼
 			if ((key == 'w' || key == 'W') && paddle1_y > paddle1_vec)
 				paddle1_y -= paddle1_vec;
 			else if ((key == 's' || key == 'S') && paddle1_y + paddle1_vec + paddle_h
@@ -55,29 +55,29 @@ int main() {
 		}
 
 
-		// 2. ¸üĞÂÊı¾İ 	
+		// 2. æ›´æ–°æ•°æ® 	
 		std::string s1{std::to_string(score1) }, s2{ std::to_string(score2) };
 
 		ball_x += ball_vec_x;
 		ball_y += ball_vec_y;
-		if (ball_y < 0 || ball_y >= HEIGHT)           //ºÍÉÏÏÂÇ½Åö×²£¬¸Ä±ä´¹Ö±ËÙ¶È·½Ïò
+		if (ball_y < 0 || ball_y >= HEIGHT)           //å’Œä¸Šä¸‹å¢™ç¢°æ’ï¼Œæ”¹å˜å‚ç›´é€Ÿåº¦æ–¹å‘
 			ball_vec_y = -ball_vec_y;
 
 		if (ball_x < paddle_w && ball_y >= paddle1_y && ball_y < paddle1_y + paddle_h)
-		{ //ºÍ×óµ²°åÅö×²£¬¸Ä±äË®Æ½ËÙ¶ÈµÄ·½Ïò
+		{ //å’Œå·¦æŒ¡æ¿ç¢°æ’ï¼Œæ”¹å˜æ°´å¹³é€Ÿåº¦çš„æ–¹å‘
 			ball_vec_x = -ball_vec_x;
 			score1 += 1;
 		}
 		else if (ball_x > WIDTH - paddle_w && ball_y >= paddle2_y
 			&& ball_y < paddle2_y + paddle_h)
-		{ //ºÍÓÒµ²°åÅö×²£¬¸Ä±äË®Æ½ËÙ¶ÈµÄ·½Ïò
+		{ //å’Œå³æŒ¡æ¿ç¢°æ’ï¼Œæ”¹å˜æ°´å¹³é€Ÿåº¦çš„æ–¹å‘
 			ball_vec_x = -ball_vec_x;
 			score2 += 1;
 		}
-		bool is_out{ false };              //ÊÇ·ñÅÜ³ö¹µÇşµÄbool±êÖ¾
+		bool is_out{ false };              //æ˜¯å¦è·‘å‡ºæ²Ÿæ¸ çš„boolæ ‡å¿—
 		if (ball_x < 0) { score2 += 1; is_out = true; }
 		else if (ball_x > WIDTH ) { score1 += 1; is_out = true; }
-		if (is_out) {                  //ÅÜ³ö×óÓÒ¹µÇş£¬Çò»Øµ½ÖĞĞÄ²¢ÒÔĞÂµÄËæ»úËÙ¶È³ö·¢
+		if (is_out) {                  //è·‘å‡ºå·¦å³æ²Ÿæ¸ ï¼Œçƒå›åˆ°ä¸­å¿ƒå¹¶ä»¥æ–°çš„éšæœºé€Ÿåº¦å‡ºå‘
 			ball_x = WIDTH / 2; ball_y = HEIGHT / 2;
 			ball_vec_x = rand() % 5 + 1;
 			ball_vec_y = rand() % 5 + 1;
@@ -85,47 +85,47 @@ int main() {
 			if (rand() % 2 == 1) ball_vec_y = -ball_vec_y;
 		}
 
-		gotoxy(0, 0);  //¶¨Î»µ½(0,0)£¬Ïàµ±ÓÚÇå¿ÕÆÁÄ»
-		hideCursor();  //Òş²Ø¹â±ê
+		gotoxy(0, 0);  //å®šä½åˆ°(0,0)ï¼Œç›¸å½“äºæ¸…ç©ºå±å¹•
+		hideCursor();  //éšè—å…‰æ ‡
 
-		//3. »æÖÆ³¡¾°
-		//3.1»æÖÆ±³¾°
-		//3.1.1 ÏÈ»æÖÆ±³¾°ÖĞµÄ¶¥²¿Ç½	
+		//3. ç»˜åˆ¶åœºæ™¯
+		//3.1ç»˜åˆ¶èƒŒæ™¯
+		//3.1.1 å…ˆç»˜åˆ¶èƒŒæ™¯ä¸­çš„é¡¶éƒ¨å¢™	
 		for (auto x = 0; x <= WIDTH; x++)
 			std::cout << '=';
 		std::cout << '\n';
-		//2.1.2 »æÖÆ±³¾°ÖĞµÄ3ÌõµÄÊúÏß	
+		//2.1.2 ç»˜åˆ¶èƒŒæ™¯ä¸­çš„3æ¡çš„ç«–çº¿	
 		for (auto y = 0; y <= HEIGHT; y++) {
 			for (auto x = 0; x <= WIDTH; x++) {
-				if (x == ball_x && y == ball_y)                     //ÇòµÄÎ»ÖÃ
+				if (x == ball_x && y == ball_y)                     //çƒçš„ä½ç½®
 					std::cout << 'O';
 				else if (y >= paddle1_y && y < paddle1_y + paddle_h
-					&& x >= paddle1_x && x < paddle1_x + paddle_w) {   //×óµ²°åÎ»ÖÃ
+					&& x >= paddle1_x && x < paddle1_x + paddle_w) {   //å·¦æŒ¡æ¿ä½ç½®
 					std::cout << 'Z';
 				}
 				else if (y >= paddle2_y && y < paddle2_y + paddle_h
-					&& x >= paddle2_x && x < paddle2_x + paddle_w) {   //ÓÒµ²°åÎ»ÖÃ
+					&& x >= paddle2_x && x < paddle2_x + paddle_w) {   //å³æŒ¡æ¿ä½ç½®
 					std::cout << 'Z';
 				}
-				else if (y == score1_y && x == score1_x) { //×ó·ÖÊıÎ»ÖÃ
+				else if (y == score1_y && x == score1_x) { //å·¦åˆ†æ•°ä½ç½®
 					std::cout << s1;
 					//while (x < score1_x + s1.size()) x++;
 					x += s1.size();
 					x--;
 				}
-				else if (y == score2_y && x == score2_x) {//ÓÒ·ÖÊıÎ»ÖÃ
+				else if (y == score2_y && x == score2_x) {//å³åˆ†æ•°ä½ç½®
 					std::cout << s2;
 					//while (x < score2_x + s2.size()) x++;
 					x += s2.size();
 					x--;
 				}
-				else if (x == 0 || x == WIDTH / 2 || x == WIDTH) //ÈıÌõ
+				else if (x == 0 || x == WIDTH / 2 || x == WIDTH) //ä¸‰æ¡
 					std::cout << '|';
 				else std::cout << ' ';
 			}
 			std::cout << '\n';
 		}
-		//2.1.3 »æÖÆ±³¾°ÖĞµÄµ×²¿Ç½	
+		//2.1.3 ç»˜åˆ¶èƒŒæ™¯ä¸­çš„åº•éƒ¨å¢™	
 		for (auto x = 0; x <= WIDTH; x++)
 			std::cout << '=';
 		std::cout << '\n';
