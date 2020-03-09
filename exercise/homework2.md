@@ -37,4 +37,11 @@ for(unsigned int i = 10; i>=0;i--)
   cout <<i << endl;
 }
 ```
-
+4. 13.	下列关于auto的用法哪里有错误？为什么？
+```cpp
+	auto x;
+	auto y{};
+	auto z{ 0 };
+	auto u = z;
+	auto v(u);
+```
