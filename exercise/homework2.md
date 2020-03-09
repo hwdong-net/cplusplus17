@@ -37,7 +37,7 @@ for(unsigned int i = 10; i>=0;i--)
   cout <<i << endl;
 }
 ```
-4. 13.	下列关于auto的用法哪里有错误？为什么？
+4. 下列关于auto的用法哪里有错误？为什么？
 ```cpp
 	auto x;
 	auto y{};
@@ -45,3 +45,32 @@ for(unsigned int i = 10; i>=0;i--)
 	auto u = z;
 	auto v(u);
 ```
+
+5. 修改下列代码的语法错误，运行修改后的程序，体会变量的不同初始化方式。
+```cpp
+#include <iostream>
+int main() {
+	double d;
+	double d1{ 3.5 };
+	double d2 = { 3.5 };
+	double d3 = 3.5;
+	double d4(3.5);
+	int i;
+	int i1{ 3.5 };
+	int i2 = { 3.5 };
+	int i3 = 3.5;
+	int i4(3.5);
+
+	std::cout << d << '\t' << d1 << '\t'
+		<< d2 << '\t' << d3 << '\t' << d4 << '\n';
+
+	std::cout << i << '\t' << i1 << '\t'
+		<< i2 << '\t' << i3 << '\t' << i4 << '\n';
+	
+	auto a = 3.5;
+	auto a1 { 3.5 };
+	auto a2 = i2 + d2 / 2;
+	std::cout << a << '\t' << a1 << '\t' << a2 << '\n';
+}
+```
+
