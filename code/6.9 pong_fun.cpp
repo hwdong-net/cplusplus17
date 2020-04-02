@@ -5,17 +5,17 @@
 #include <conio.h>
 #include <string>
 
-using color = char;  //¶¨ÒåÒ»¸ö±íÊ¾ÑÕÉ«µÄcolorÀàĞÍ£¬Ã¿ÖÖ×Ö·û¾ÍÊÇÒ»ÖÖÑÕÉ«
-color* framebuffer{ nullptr };          //Ö¡»º³åÆ÷
+using color = char;  //å®šä¹‰ä¸€ä¸ªè¡¨ç¤ºé¢œè‰²çš„colorç±»å‹ï¼Œæ¯ç§å­—ç¬¦å°±æ˜¯ä¸€ç§é¢œè‰²
+color* framebuffer{ nullptr };          //å¸§ç¼“å†²å™¨
 int framebuffer_width, framebuffer_height;
-color clear_color{ ' ' };                //ÇåÆÁÑÕÉ«  
+color clear_color{ ' ' };                //æ¸…å±é¢œè‰²  
 
-bool initWindow(int width, int height);  //³õÊ¼»¯Ò»¸ö´°¿Ú£¬·µ»ØboolÖµ±íÊ¾³É¹¦»¹ÊÇÊ§°Ü
-void clearWindow();               //Çå¿Õ´°¿ÚÄÚÈİ
-void destoryWindow();             //Ïú»Ù´°¿Ú£¬ÊÍ·ÅÖ¡»º³åÆ÷Õ¼ÓÃµÄÄÚ´æ
-void show();                      //ÏÔÊ¾Ö¡»º³åÇøµÄÍ¼Ïñ
-void setPixel(const int x, const int y, color c = ' ');            //ÉèÖÃÏñËØµÄÑÕÉ«
-color getPixel(const int x, const int y);                       //ÉèÖÃÏñËØµÄÑÕÉ«
+bool initWindow(int width, int height);  //åˆå§‹åŒ–ä¸€ä¸ªçª—å£ï¼Œè¿”å›boolå€¼è¡¨ç¤ºæˆåŠŸè¿˜æ˜¯å¤±è´¥
+void clearWindow();               //æ¸…ç©ºçª—å£å†…å®¹
+void destoryWindow();             //é”€æ¯çª—å£ï¼Œé‡Šæ”¾å¸§ç¼“å†²å™¨å ç”¨çš„å†…å­˜
+void show();                      //æ˜¾ç¤ºå¸§ç¼“å†²åŒºçš„å›¾åƒ
+void setPixel(const int x, const int y, color c = ' ');            //è®¾ç½®åƒç´ çš„é¢œè‰²
+color getPixel(const int x, const int y);                       //è®¾ç½®åƒç´ çš„é¢œè‰²
 void set_clear_color(color c) { clear_color = c; }
 color get_clear_color() { return clear_color; }
 
@@ -28,7 +28,7 @@ bool initWindow(int width, int height) {
     return true;
 }
 
-//ÓÃÇåÆÁÑÕÉ«clear_colorÇå¿Õ´°¿ÚÄÚÈİ
+//ç”¨æ¸…å±é¢œè‰²clear_coloræ¸…ç©ºçª—å£å†…å®¹
 void clearWindow() {
     for (int y = 0; y < framebuffer_height; y++)
         for (int x = 0; x < framebuffer_width; x++)
@@ -36,13 +36,13 @@ void clearWindow() {
 
 }
 
-//Ïú»Ù´°¿Ú£¬ÊÍ·ÅÖ¡»º³åÆ÷Õ¼ÓÃµÄÄÚ´æ
+//é”€æ¯çª—å£ï¼Œé‡Šæ”¾å¸§ç¼“å†²å™¨å ç”¨çš„å†…å­˜
 void destoryWindow() {
     delete[] framebuffer;
     framebuffer = nullptr;
 }
 
-//ÏÔÊ¾Ö¡»º³åÇøµÄÍ¼Ïñ
+//æ˜¾ç¤ºå¸§ç¼“å†²åŒºçš„å›¾åƒ
 void show() {
     for (int y = 0; y < framebuffer_height; y++) {
         for (int x = 0; x < framebuffer_width; x++)
@@ -58,17 +58,17 @@ color getPixel(const int x, const int y) {
     return framebuffer[y * framebuffer_width + x];
 }
 
-//1. ³õÊ¼»¯ÓÎÏ·ÖĞµÄÊı¾İ
-int ball_x, ball_y, ball_vec_x{ 0 }, ball_vec_y{ 0 }; //ÇòÎ»ÖÃºÍËÙ¶È
-int paddle_w, paddle_h;   //µ²°åµÄ³¤¿í
-int paddle1_x, paddle1_y, paddle1_vec{ 0 }; //×óµ²°åÎ»ÖÃºÍËÙ¶È
-int paddle2_x, paddle2_y, paddle2_vec{ 0 };       //ÓÒµ²°åÎ»ÖÃºÍËÙ¶È
-int score1{ 0 }, score2{ 0 }, score1_x, score1_y, score2_x, score2_y; //µÃ·Ö¼°µÃ·ÖµÄÏÔÊ¾Î»ÖÃ
+//1. åˆå§‹åŒ–æ¸¸æˆä¸­çš„æ•°æ®
+int ball_x, ball_y, ball_vec_x{ 0 }, ball_vec_y{ 0 }; //çƒä½ç½®å’Œé€Ÿåº¦
+int paddle_w, paddle_h;   //æŒ¡æ¿çš„é•¿å®½
+int paddle1_x, paddle1_y, paddle1_vec{ 0 }; //å·¦æŒ¡æ¿ä½ç½®å’Œé€Ÿåº¦
+int paddle2_x, paddle2_y, paddle2_vec{ 0 };       //å³æŒ¡æ¿ä½ç½®å’Œé€Ÿåº¦
+int score1{ 0 }, score2{ 0 }, score1_x, score1_y, score2_x, score2_y; //å¾—åˆ†åŠå¾—åˆ†çš„æ˜¾ç¤ºä½ç½®
 
 void random_ball(const int window_width, const int window_height);
 
 bool init(const int window_width = 80, const int window_height = 30) {
-    if (!initWindow(window_width, window_height)) {  // ³õÊ¼»¯´°¿Ú
+    if (!initWindow(window_width, window_height)) {  // åˆå§‹åŒ–çª—å£
         return false;
     }
     ball_x = window_width / 2;
@@ -82,26 +82,26 @@ bool init(const int window_width = 80, const int window_height = 30) {
     score1 = 0; score2 = 0;
     score1_x = paddle_w + 8;           score1_y = 2;
     score2_x = window_width - 8 - paddle_w; score2_y = 2;
-    //	auto pong_circle_r2{ 40 };  //½ûÇø°ë¾¶µÄÆ½·½
+    //	auto pong_circle_r2{ 40 };  //ç¦åŒºåŠå¾„çš„å¹³æ–¹
 
-    srand((unsigned)time(0));  //Éú³ÉËæ»úÊıÖÖ×Ó
+    srand((unsigned)time(0));  //ç”Ÿæˆéšæœºæ•°ç§å­
     random_ball(window_width, window_height);
     return true;
 }
-//³õÊ¼»¯ÇòµÄÎ»ÖÃºÍËÙ¶È
+//åˆå§‹åŒ–çƒçš„ä½ç½®å’Œé€Ÿåº¦
 void random_ball(const int window_width, const int window_height) {
     ball_x = window_width / 2; ball_y = window_height / 2;
-    ball_vec_x = rand() % 3 + 1;    //Éú³ÉÒ»¸öËæ»úÕûÊı±íÊ¾ÇòµÄºáÏòËÙ¶È
-    ball_vec_y = rand() % 3 + 1;    //Éú³ÉÒ»¸öËæ»úÕûÊı±íÊ¾ÇòµÄ×İÏòËÙ¶È
-    if (rand() % 2 == 1) ball_vec_x = -ball_vec_x;  //ËÙ¶È¿ÉÒÔÊ¹¸ºÊı
-    if (rand() % 2 == 1) ball_vec_y = -ball_vec_y;  //ËÙ¶È¿ÉÒÔÊ¹¸ºÊı
+    ball_vec_x = rand() % 3 + 1;    //ç”Ÿæˆä¸€ä¸ªéšæœºæ•´æ•°è¡¨ç¤ºçƒçš„æ¨ªå‘é€Ÿåº¦
+    ball_vec_y = rand() % 3 + 1;    //ç”Ÿæˆä¸€ä¸ªéšæœºæ•´æ•°è¡¨ç¤ºçƒçš„çºµå‘é€Ÿåº¦
+    if (rand() % 2 == 1) ball_vec_x = -ball_vec_x;  //é€Ÿåº¦å¯ä»¥ä½¿è´Ÿæ•°
+    if (rand() % 2 == 1) ball_vec_y = -ball_vec_y;  //é€Ÿåº¦å¯ä»¥ä½¿è´Ÿæ•°
 }
 
-//±³¾°°üÀ¨ÉÏÏÂÇ½±Ú¡¢×óÓÒ¹µÇşºÍÖĞ¼ä·Ö¸îÏß£¬¿ÉÒÔÓÃÒ»¸öº¯Êı»æÖÆµ½»­²¼ÉÏ£º
+//èƒŒæ™¯åŒ…æ‹¬ä¸Šä¸‹å¢™å£ã€å·¦å³æ²Ÿæ¸ å’Œä¸­é—´åˆ†å‰²çº¿ï¼Œå¯ä»¥ç”¨ä¸€ä¸ªå‡½æ•°ç»˜åˆ¶åˆ°ç”»å¸ƒä¸Šï¼š
 color boundary_color = '|';
 color wall_color = '=';
 void draw_background() {
-    clearWindow();               //Çå¿ÕÎª±³¾°ÑÕÉ«	
+    clearWindow();               //æ¸…ç©ºä¸ºèƒŒæ™¯é¢œè‰²	
     int& window_width = framebuffer_width, & window_height = framebuffer_height;
     auto right{ window_width - 1 }, middle{ window_width / 2 };
     for (int y = 0; y < window_height; y++) {
@@ -116,14 +116,14 @@ void draw_background() {
     }
 }
 
-//draw_sprites()»æÖÆ³¡¾°ÖĞµÄ¾«Áé£ºÇò¡¢µ²°åºÍµÃ·Ö¡£
+//draw_sprites()ç»˜åˆ¶åœºæ™¯ä¸­çš„ç²¾çµï¼šçƒã€æŒ¡æ¿å’Œå¾—åˆ†ã€‚
 
 color ball_color = 'O';
 color paddle_color = 'z';
 void draw_sprites() {
-    //»æÖÆÇò
+    //ç»˜åˆ¶çƒ
     setPixel(ball_x, ball_y, ball_color);
-    //»æÖÆ×ó¡¢ÓÒµ²°å
+    //ç»˜åˆ¶å·¦ã€å³æŒ¡æ¿
     for (auto y = paddle1_y; y < paddle1_y + paddle_h; y++)
         for (auto x = paddle1_x; x < paddle1_x + paddle_w; x++)
             setPixel(x, y, paddle_color);
@@ -132,7 +132,7 @@ void draw_sprites() {
         for (auto x = paddle2_x; x < paddle2_x + paddle_w; x++)
             setPixel(x, y, paddle_color);
 
-    //»æÖÆ·ÖÊı£º·ÖÊıÊÇÒ»¸ö×Ö·û´®
+    //ç»˜åˆ¶åˆ†æ•°ï¼šåˆ†æ•°æ˜¯ä¸€ä¸ªå­—ç¬¦ä¸²
     std::string s1{ std::to_string(score1) }, s2{ std::to_string(score2) };
     for (auto i = 0; i < s1.size(); i++)
         setPixel(score1_x + i, score1_y, s1[i]);
@@ -150,17 +150,17 @@ void hideCursor() {
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
 void render_scene() {
-    gotoxy(0, 0);  //¶¨Î»µ½(0,0)£¬Ïàµ±ÓÚÇå¿ÕÆÁÄ»
+    gotoxy(0, 0);  //å®šä½åˆ°(0,0)ï¼Œç›¸å½“äºæ¸…ç©ºå±å¹•
     hideCursor();
-    draw_background();   //ÔÚ»­²¼ÉÏ»æÖÆ±³¾°
-    draw_sprites();        //ÔÚ»­²¼ÉÏ»æÖÆ¾«Áé
-    show();              //ÔÚÆÁÄ»ÉÏÏÔÊ¾»­²¼ÄÚÈİ£¨³¡¾°£©
+    draw_background();   //åœ¨ç”»å¸ƒä¸Šç»˜åˆ¶èƒŒæ™¯
+    draw_sprites();        //åœ¨ç”»å¸ƒä¸Šç»˜åˆ¶ç²¾çµ
+    show();              //åœ¨å±å¹•ä¸Šæ˜¾ç¤ºç”»å¸ƒå†…å®¹ï¼ˆåœºæ™¯ï¼‰
 }
 
 #if 0
 int main() {
     if (!init()) {
-        std::cout << "³õÊ¼»¯´°¿ÚÊ§°Ü£¡\n";
+        std::cout << "åˆå§‹åŒ–çª—å£å¤±è´¥ï¼\n";
         return 1;
     }
     render_scene();
@@ -169,11 +169,11 @@ int main() {
 #endif
 
 
-//¿É½«ÊÂ¼ş´¦Àí¹¦ÄÜ·â×°ÔÚÒ»¸öº¯ÊıÀï£º
+//å¯å°†äº‹ä»¶å¤„ç†åŠŸèƒ½å°è£…åœ¨ä¸€ä¸ªå‡½æ•°é‡Œï¼š
 int processInput() {    
     auto WIDTH = framebuffer_width;
     auto HEIGHT = framebuffer_height;
-    //  ´¦ÀíÊÂ¼ş
+    //  å¤„ç†äº‹ä»¶
     char key;
     if (_kbhit()) {
         key = _getch();
@@ -191,11 +191,11 @@ int processInput() {
     return 0;
 }
 
-//¸üĞÂÇòµÄÎ»ÖÃ£¬¼ì²âÇòÓëÇ½±Ú¡¢µ²°åÊÇ·ñ·¢ÉúÅö×²¡£
+//æ›´æ–°çƒçš„ä½ç½®ï¼Œæ£€æµ‹çƒä¸å¢™å£ã€æŒ¡æ¿æ˜¯å¦å‘ç”Ÿç¢°æ’ã€‚
 void update() {
     auto WIDTH = framebuffer_width;
     auto HEIGHT = framebuffer_height;
-    // 2. ¸üĞÂÊı¾İ 
+    // 2. æ›´æ–°æ•°æ® 
     ball_x += ball_vec_x;
     ball_y += ball_vec_y;
     if (ball_y < 0 || ball_y >= HEIGHT) {
@@ -219,9 +219,9 @@ void update() {
 }
 
 int main() {
-    //1. ³õÊ¼»¯Êı¾İ
+    //1. åˆå§‹åŒ–æ•°æ®
     init();
-    //2.  ÓÎÏ·Ñ­»·
+    //2.  æ¸¸æˆå¾ªç¯
     while (true) {
         if (processInput() < 0)break;
         update();
