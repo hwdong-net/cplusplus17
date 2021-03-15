@@ -4,10 +4,11 @@
 
 ### 教学资源
 
-- 教学博客：https://hwdong.net
-- youtube频道： [hwdong](https://www.youtube.com/channel/UCIJLimsCMSfc3wHmevgj8Ng)
--  twitter： hwdong
-- B站和微博：[hw-dong](https://space.bilibili.com/281453312) 
+- 教学博客：[https://hwdong-net.github.io](https://hwdong-net.github.io) 
+- youtube频道： [hwdong](https://www.youtube.com/c/hwdong)
+- twitter： hwdong
+- B站：[hw-dong](https://space.bilibili.com/281453312) 
+- 微博：hwdong编程
 - qq群：[101132160](https://hwdong.net/img2/qq.jpg)
 
     <div align="center"> <img src="https://hwdong.net/img2/qq.jpg" width="200"/> </div><br>
