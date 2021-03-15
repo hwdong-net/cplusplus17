@@ -9,7 +9,7 @@
 - twitter： hwdong
 - B站：[hw-dong](https://space.bilibili.com/281453312) 
 - 微博：hwdong编程
-- qq群：[101132160](https://hwdong.net/img2/qq.jpg)
+- qq群：101132160(1群已满) ,376330161（2群）
 
     <div align="center"> <img src="https://hwdong.net/img2/qq.jpg" width="200"/> </div><br>
 
