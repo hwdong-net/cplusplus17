@@ -19,6 +19,16 @@ int main(){
   double scores[Size];
 }
 ```
+当然，const对象可以用非const对象或表达式初始化，也可以用const对象对非const变量初始化或赋值：
+```
+int main(){
+  int a{2},b;
+  cosnt int i=a*2;
+  b = a;
+}
+```
+
+
 #### const和指针
 
 下面代码定义了3个指针变量p、q、s：
