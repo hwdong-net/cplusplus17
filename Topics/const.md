@@ -62,3 +62,29 @@ q和s紧挨着的是`*`，说明它们首先是一个指针变量，再往左看
 ```cpp
 const int* const p4; //指向const char的const指针
 ```
+
+#### const对象的引用
+可以定义一个const对象的引用，如：
+```cpp
+ int main(){
+    int i = 42;
+    const int ci = 1024; //ci是const int对象，即不能修改的int，也称为常量
+    const int &r1 = ci;   //用const int初始化const int的引用变量r1
+    const int &r2 = i;    // 用non-const的int变量i初始化const int的引用变量r2
+    const int &r3 = 42;   // 用文字量42初始化const int的引用变量r3
+    const int &r4 = r1 * 2; // 用文字量r1 * 2初始化const int的引用变量r4
+ }
+```
+r,r1,r2,r3都是const int对象的引用变量。因此不能对它们引用的对象进行修改。
+它们可以用const对象、非const对象、文字量或表达式初始化，
+实际上对于用非const对象的初始化的const对象的引用，它们引用的是临时的const对象。
+
+```cpp
+  double dval = 3.14;
+  const int &r8 = dval; //dval是double类型，而r8是const int类型的引用。
+```
+实际上，““const int &r8 = dval;”替换为如下形式：
+```cpp
+const int temp = dval;
+const int &r8 = temp;
+```
