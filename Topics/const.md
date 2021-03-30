@@ -1,5 +1,7 @@
 ## const
 
+[YouTube视频:const与指针和引用](https://www.youtube.com/watch?v=apj4-To0rJ0)
+
 ### const对象
 
 可以用**const**关键字定义一个变量，说明这个变量的值是不变的，告诉编译器程序员不能在代码中修改这个const（变量）对象的值。
