@@ -110,3 +110,24 @@ int main() {
 	cout << r << endl;
 }
 ```
+因为引用变量本身一旦一定就不可修改，因此“int &const r=i”和"int &r = i"是同一个意思。
+```cpp
+int main() {
+	int i{ 0 };
+	int& const r = i;//int&   r1 = i;
+	r = 4; //即i =4;
+	cout << i << " " << r << endl;
+}
+```
+非const对象的引用不能引用const对象，如：
+```cpp
+int main() {
+	int i{ 0 };
+	const int ci{ 4 };
+	int&  const r1 = i;//int&   r1 = i;
+	int& const r2 = ci;//非const对象的引用不能引用const对象
+	int&  r3 = ci;//非const对象的引用不能引用const对象
+	r1 = 4;
+	cout << i << " " << r1 << endl;
+}
+```
