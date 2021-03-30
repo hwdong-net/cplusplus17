@@ -57,3 +57,8 @@ q和s紧挨着的是`*`，说明它们首先是一个指针变量，再往左看
   *q = 4;   //错：q指向的是const int对象，const对象是不能被修改的
   *s = 4;   //错：s指向的是const int对象，const对象是不能被修改的
 ```
+
+下面的指针p4是const对象（即p4不能被修改），且它指向的也被认为是const对象（即也不能修改其执行的对象，即`*P4`）。：
+```cpp
+const int* const p4; //指向const char的const指针
+```
