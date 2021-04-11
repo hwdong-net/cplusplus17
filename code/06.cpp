@@ -1,3 +1,5 @@
+//========为什么需要函数？==========
+//--------最大公约数-------------
 # if 0
 #include <iostream>
 int main() {
@@ -16,6 +18,9 @@ int main() {
     std::cout << "最大公约数是： " << m << std::endl;
 }
 #endif
+
+//------函数的定义、函数的形式参数----
+//------函数的调用、实际参数----------
 
 # if 0
 #include <iostream>
@@ -39,6 +44,7 @@ int main() {
 }
 #endif
 
+//---------return返回（结果）---------------
 # if 0
 #include <iostream>
 int GCD(int m, int n) {
@@ -62,34 +68,42 @@ int main() {
 
 #endif
 
+
+//一个函数可以有多个return语句，函数遇到return就执行结束
 #if 0
 #include <iostream>
-auto g() {//一个函数可以有多个return语句，函数遇到return就执行结束
+auto g() {
     int i; std::cin >> i;
     if (i > 0) return 1;        //函数结束，返回1
     else if (i < 0) return -1;   //函数结束，返回-1
     else return 0;              //函数结束，返回0
 }
-
-#if 0
-auto g2() {//一个函数可以有多个return语句，函数遇到return就执行结束
-    int i; std::cin >> i;
-    if (i > 0) return 3.14;        //函数结束，返回1
-    else if (i < 0) return -1;   //函数结束，返回-1
-    else return 0;              //函数结束，返回0
-}
-#endif
 int main() {
-
+    auto ret = g();
+    std::cout<<typeid(ret).name();
     return 0;
 }
 #endif
 
+//多个return值的类型必须相同或能转化为同一个类型
 #if 0
+#include <iostream>
+auto g2() {
+    int i; std::cin >> i;
+    if (i > 0) return 3.14;        
+    else if (i < 0) return -1;   
+    else return 0;              
+}
+int main() {
+    g2();
+    return 0;
+}
+#endif
 
-//返回int*指针类型
+//不能返回非静态局部变量的引用或指针
+#if 0
 int* fp() {
-    int var{3};
+    int var;
     //...
     return &var;
 }
@@ -105,11 +119,50 @@ int main() {
     *p = 45;
     std::cout << *p << std::endl;
 
-    int* q = fp();
-    *q = 45;
-    std::cout << *q << std::endl;
+    int& q = fr();
+    q = 45;
+    std::cout << q << std::endl;
 }
 #endif
+
+
+//静态局部变量和非静态局部变量
+#if 0
+#if 1
+int main() {
+    while (true) {
+        auto i{ 0 }; //i是一个非静态局部变量
+        if (i++ < 6) std::cout << i << '\t';
+        else break;
+    }
+}
+#else
+
+#include <iostream>
+int main() {
+    while (true) {
+        static auto i{ 0 }; //i是一个静态局部变量
+        if (i++ < 6) std::cout << i << '\t';
+        else break;
+    }
+}
+#endif
+#endif 
+
+#if 0
+#include <iostream>
+void  f() {
+    static auto i{ 0 };   //i是静态局部变量
+    int j{ 0 };          //j是非静态局部变量
+    i++;  j++;
+    std::cout << i << '\t' << j << '\n';
+}
+
+int main() {
+    f();
+    f();
+}
+#endif 
 
 #if 0
 #if 0
@@ -144,11 +197,10 @@ int main() {
     f(x, y);
     std::cout << x << '\t' << y << std::endl;
 }
-
-
-
 #endif
 
+//========函数的形参========
+//----值形参、引用形参----
 #if 0
 //int Pow(int e = 2,int x) {
 int Pow(int x, int e = 2) {
@@ -162,19 +214,36 @@ int Pow(int x, int e = 2) {
 int main() {
     std::cout << Pow(3) << '\t' << Pow(3, 4) << '\n';
 }
-
 #endif
 
+//----默认形参---
+#if 0
+int Pow(int x, int e = 2) {
+    auto ret{ 1 };
+    for (auto i = 0; i < e; i++)
+        ret *= x;
+    return ret;
+}
+
+#include <iostream>
+int main() {
+    std::cout << Pow(3) << '\t' << Pow(3, 4) << '\n';
+}
+#endif 
+
+
+//------数组作为形参-----
+//函数的形参写成数组的样子
+//实际是一个指针变量
 #if 0
 #include <iostream>
-//void PrintArr(int arr[], int n) {   //n说明形参arr表示数组的大小
-void PrintArr(int *arr, int n) {   //n说明形参arr表示数组的大小
+void PrintArr(int arr[], int n) {   
+//void PrintArr(int *arr, int n) {   //n说明形参arr表示数组的大小
     for (auto i = 0; i < n; i++)
         //std::cout << arr[i] << '\t';
         std::cout << *(arr+i)<< '\t';
 }
 
-
 int main() {
     int a[]{ 7,2,4,19 };
     PrintArr(a, 4);
@@ -182,14 +251,13 @@ int main() {
 
 #endif
 
+//----不能用range for访问指针指向的数组----
 #if 0
 #include <iostream>
-void PrintArr(int arr[], int n) {   //n说明形参arr表示数组的大小
+void PrintArr(int arr[], int n) {  
     for (auto e:arr)
         std::cout << e << '\t';
 }
-
-
 int main() {
     int a[]{ 7,2,4,19 };
     PrintArr(a, 4);
@@ -197,9 +265,13 @@ int main() {
 
 #endif
 
+//引用参数可引用一个数组
+//此时可以用range for访问这个数组
 #if 0
 #include <iostream>
-void SquareArr(int(&arr)[4]) {   //arr引用的是int[4]类型的数组，即引用的是有4个int元素的数组
+//arr引用的是int[4]类型的数组，
+//即引用的是有4个int元素的数组
+void SquareArr(int(&arr)[4]) {   
     for (auto& e : arr)  //arr既然是一个真正数组，就可以用Range for循环
         e *= e;
 }
@@ -229,19 +301,35 @@ int main() {
 
 #endif
 
+
+//-------const与形参----------
+/*
+void f(const int x, const int y);
+void g(const int *p, const int n);
+void h(int *const q, const int n);
+void k(const int &r);
+*/
+//不能将一个const对象的指针(或引用)
+// 传给一个非const的指针（引用）形参，
+// const int *不能传给int*
+//但反过来是可以的
+
 #if 0
-
-int add( int x,  int y) {   
-    return x + y;
+void f(int *x) {
 }
-
-#include <iostream>
+void g(int& x) {
+}
 int main() {
-    const int a{ 3 },b{ 4 };
-    std::cout << add(a, b) << std::endl;
+    const int i{3};
+ //   f(&i);
+    g(i);
 }
 #endif
 
+//-------可变数目的形参---------
+//C语言 ...
+//C++: 用C++标准库的std::initializer_list<T>类型
+// 定义函数的形参
 #if 0
 #include <iostream>
 //scores是std::initializer_list<double>类型的变量
@@ -261,10 +349,9 @@ int main() {
     std::cout << average({ 50.,80 }) << '\n';
     std::cout << average({ 90,50.,80 }) << '\n';
 }
-
 #endif
 
-
+//-------递归函数----------
 #if 0
 #include <iostream>
 int fact(int n) {
@@ -275,10 +362,21 @@ int fact(int n) {
 int main() {
     std::cout << fact(4) << '\n';     //输出： 24
 }
-
+/*
+递归是一个嵌套的过程，如fact(4)的递归计算过程如下：
+fact(4)
+ 4 * fact(3)
+ 4 * (3 * fact(2))
+ 4 * (3 * (2 * fact(1)))
+ 4 * (3 * (2 * 1 ))
+ 4 * (3 * 2)
+ 4 * 6
+ 24
+*/
 #endif
 
 #if 0
+//斐波那契数列
 #include <iostream>
 int fib(int n) {
     if (n < 2)                  //基情形
@@ -293,6 +391,8 @@ int main() {
 
 #endif
 
+
+
 #if 0
 #include <iostream>
 int gcd(int m, int n) {
@@ -304,7 +404,6 @@ int gcd(int m, int n) {
 int main() {
     std::cout << gcd(72, 27) << '\t' << gcd(24, 36) << '\t';
 }
-
 #endif
 
 #if 0
@@ -327,6 +426,7 @@ int main() {
     std::cout << binarySearch(arr, 0, 11, 13) << '\n';
 }
 #endif
+
 
 #if 0
 #include <iostream>
@@ -621,7 +721,7 @@ int main() {
 #endif
 
 
-#if 1
+#if 0
 inline void min_max(double s[], const int n, double& min, double& max) {
     if (n <= 0) return;
     min = s[0]; max = s[0];
