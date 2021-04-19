@@ -576,22 +576,30 @@ int main() {
 non-const指针或引用。
 */
 
-const int ci = 3; //const对象可以用non-const对象初始化
-int i = ci;       //non-const对象可以用const对象初始化
-const int j = i;  //const对象可以用non-const对象初始化
-const int& cri = i; // const对象的引用可用const或non-const值初始化，包括文字量
-const int& cr3 = 3; // const对象的引用可用const或non-const值初始化，包括文字量
-const int& crj = j; // const对象的引用可用const或non-const值初始化，包括文字量
-int& r = ci;        //non-const对象的引用（普通引用）不能用const对象初始化
-int& r = 3;        //non-const对象的引用（普通引用）不能用const对象初始化，包括文字量
+//复习：变量的初始化
 
-const int* cp = &i; // ok: const对象的指针可用const或non-const的指针(地址)初始化
-const int* cpj = &j; // ok: const对象的指针可用const或non-const的指针(地址)初始化
-const int* cp3 = &3; //错：文字量没有地址
-int* p = &i;       //普通指针（non-const对象的指针）可用non-const的指针(地址)初始化
-int* p2 = cp;   // error: 普通指针不能用const对象的指针初始化：p2和cp类型不匹配
-int* pj = &j;   // error: 普通指针不能用const对象的指针初始化：pj和&j类型不匹配
+#if 0
+int main() {
+    const int ci = 3; //const对象可以用non-const对象初始化
+    int i = ci;       //non-const对象可以用const对象初始化
+    const int j = i;  //const对象可以用non-const对象初始化
+    const int& cri = i; // const对象的引用可用const或non-const值初始化，包括文字量
+    const int& cr3 = 3; // const对象的引用可用const或non-const值初始化，包括文字量
+    const int& crj = j; // const对象的引用可用const或non-const值初始化，包括文字量
+    int& r = ci;        //non-const对象的引用（普通引用）不能用const对象初始化
+    int& r = 3;        //non-const对象的引用（普通引用）不能用const对象初始化，包括文字量
 
+    const int* cp = &i; // ok: const对象的指针可用const或non-const的指针(地址)初始化
+    const int* cpj = &j; // ok: const对象的指针可用const或non-const的指针(地址)初始化
+    const int* cp3 = &3; //错：文字量没有地址
+    int* p = &i;       //普通指针（non-const对象的指针）可用non-const的指针(地址)初始化
+    int* p2 = cp;   // error: 普通指针不能用const对象的指针初始化：p2和cp类型不匹配
+    int* pj = &j;   // error: 普通指针不能用const对象的指针初始化：pj和&j类型不匹配
+}
+#else
+
+
+//对于函数，涉及const的指针或引用的形参的初始化也是一样的，如：
 void fun(int*) {/*...*/ }
 void fun(int&) {/*...*/ }
 void g(const int&) {/*...*/ }
@@ -608,7 +616,7 @@ int main() {
     fun(ui); // 错: 类型不匹配，ui是unsigned
     g(37);   // OK: cosnt int的引用可以用文字量初始化
 }
-
+#endif
 
 #endif 
 
@@ -623,12 +631,18 @@ int main() {
 }
 #endif
 
+//constexpr关键字可以用来修饰一个变量或函数，
+//表示这个变量或函数的值是编译时可评估的。
+//也就是说变量或函数的值是编译时就能确定的值且不会改变。
+
 #if 0
 constexpr auto pi{ 3.14 };
 constexpr int I;
+#endif 
 
-
-constexpr auto size1(int x) {   //constexpr函数可以返回常量表达式
+#if 0
+//constexpr函数可以返回常量表达式
+constexpr auto size1(int x) {
     int i{ 9 };	return i;
 }
 
@@ -642,7 +656,6 @@ int main() {
     int arr[e];
     int brr[d];
 }
-
 #endif
 
 #if 0
