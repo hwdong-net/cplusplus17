@@ -500,31 +500,60 @@ int main() {
 
 
 
+//=======函数重载与重载解析===========
+/*C++同一作用域总可定义多个同名不同签名的函数，
+称之为函数重载。
+
+函数名及其形参列表构成了函数的签名，
+即只要函数的签名不同，就是不同的函数。
+*/
+
 #if 0
 int f() {/*...*/ }
 int f(int) {/*...*/ }
 int f(int, int) {/*...*/ }
 double f(double) {/*...*/ }
+#endif
 
+#if 0
+//同一作用域中的多个相同签名的函数，称之为重定义。
 int f(int) {/*...*/ }
 double f(int) {/*...*/ }
+#endif
 
+#if 0
+//形参不同和形参是否const无关
+void f(int) {}
+void f(const int) {}
 
-int f(int)
-int f(const int)
+void g(int*) {}      //int对象的指针
+void g(int* const) {}    //int对象的常指针
+int main() {
+    int i{ 0 };
+    f(i);
+    g(&i);
+}
 
-int g(int*)          //int对象的指针
-int g(int* const)     //int对象的常指针
+//因此：如果函数不修改形参，应将形参声明为const对象。
+#endif
 
+#if 0
 //但下面的2个同名函数f()（或g()）的形参是不同的：
+void f(int&) {}        //int对象的引用
+void f(const int&) {}    //const int对应的引用
 
-int f(int&)          //int对象的引用
-int f(const int&)     //const int对应的引用
+void g(int*);         //int对象的指针
+void g(const int*);    //const int 对象的指针，指针不是const
+int main() {
+    int i{ 0 };
+    f(i);
+    g(&i);
+}
+#endif
 
-int g(int*)          //int对象的指针
-int g(const int*)    //const int 对象的指针，指针不是const
-
-f(const int)而不是f(int)形式
+#if 0
+//当有多个同名函数时，编译器根据实参来选择一个最合适的函数。
+//这个选择最佳重载函数的过程称为重载解析。
 
 void f()
 void f(int)
@@ -535,7 +564,17 @@ int main() {
     f(5.6);
     f(3, 5.6);
 }
+#endif
 
+
+#if 0
+/*
+* 在重载解析时，实参对形参的初始化和普通变量的初始化是一样的。
+如，可以用const或non-const对象的指针或引用去初始化const对象
+的指针或引用，
+反过来，不能用const对象的指针或引用去初始化
+non-const指针或引用。
+*/
 
 const int ci = 3; //const对象可以用non-const对象初始化
 int i = ci;       //non-const对象可以用const对象初始化
@@ -572,6 +611,8 @@ int main() {
 
 
 #endif 
+
+
 
 #if 0
 inline int add(const int x, const int y) {
