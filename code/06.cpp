@@ -1,21 +1,25 @@
-//========为什么需要函数？==========
-//--------最大公约数-------------
-# if 0
-#include <iostream>
+//========为什么需要函数？==========.include <iostream>
+using namespace std;
+//---------最大公约数--
+#if 0
 int main() {
-    int m = 72, n = 27;
+    int m{ 72 }, n{ 27 };
+    cout << m << "和" << n;
     while (n != 0) {
-        int r = m % n;
+        auto r = m % n;
         m = n; n = r;
     }
-    std::cout << "最大公约数是： " << m << std::endl;
+    cout << " 的最大公约数为"
+        << m << endl;
 
-    m = 36; n = 24;
+    m = 36, n = 24;
+    cout << m << "和" << n;
     while (n != 0) {
-        int r = m % n;
+        auto r = m % n;
         m = n; n = r;
     }
-    std::cout << "最大公约数是： " << m << std::endl;
+    cout << " 的最大公约数为"
+        << m << endl;
 }
 #endif
 
@@ -65,10 +69,22 @@ int main() {
     gcd = GCD(x, y);
     std::cout << x << "和" << y << "的最大公约数是： " << gcd << std::endl;
 }
-
 #endif
 
 
+#if 0
+//函数的每个形参用逗号隔开，必须说明每个形参的类型
+//形参不能同名（也不能与局部变量同名）：重定义
+void f();
+void f1(void);
+
+//void f2(int v1, v2);
+void f3(int v) {
+    int v;
+}
+#endif
+
+//---------return：返回结果----------------
 //一个函数可以有多个return语句，函数遇到return就执行结束
 #if 0
 #include <iostream>
@@ -186,6 +202,7 @@ int main() {
 #endif
 
 #if 0
+//1. 值形参，引用形参
 #include <iostream>
 void f(int var, int& ref) {
     var++;
@@ -199,56 +216,44 @@ int main() {
 }
 #endif
 
-//========函数的形参========
-//----值形参、引用形参----
 #if 0
-//int Pow(int e = 2,int x) {
-int Pow(int x, int e = 2) {
+//2.默认形参
+int pow(int x, int n = 2) {
     auto ret{ 1 };
-    for (auto i = 0; i < e; i++)
+    for (auto i{ 0 }; i < n; i++)
         ret *= x;
     return ret;
 }
 
-#include <iostream>
+
+void f(int a, int b = 2, int c = 4) {
+
+}
+
 int main() {
-    std::cout << Pow(3) << '\t' << Pow(3, 4) << '\n';
+    f();
+    cout << pow(3) << '\t'
+        << pow(3, 4) << endl;
 }
 #endif
 
-//----默认形参---
+
+//3.数组形参
 #if 0
-int Pow(int x, int e = 2) {
-    auto ret{ 1 };
-    for (auto i = 0; i < e; i++)
-        ret *= x;
-    return ret;
-}
+//函数的形参写成数组的样子,实际是一个指针变量
+void printArr(int a[], int n) { //int *
+    //for(auto e:a)
+    //	cout << e << '\t';
 
-#include <iostream>
-int main() {
-    std::cout << Pow(3) << '\t' << Pow(3, 4) << '\n';
-}
-#endif 
-
-
-//------数组作为形参-----
-//函数的形参写成数组的样子
-//实际是一个指针变量
-#if 0
-#include <iostream>
-void PrintArr(int arr[], int n) {   
-//void PrintArr(int *arr, int n) {   //n说明形参arr表示数组的大小
-    for (auto i = 0; i < n; i++)
-        //std::cout << arr[i] << '\t';
-        std::cout << *(arr+i)<< '\t';
+    for (auto i{ 0 }; i < n; i++)
+        cout << a[i] << '\t';
+    cout << endl;
 }
 
 int main() {
-    int a[]{ 7,2,4,19 };
-    PrintArr(a, 4);
+    int arr[]{ 1,2,3,4,5 };
+    printArr(arr, 5);
 }
-
 #endif
 
 //----不能用range for访问指针指向的数组----
@@ -351,7 +356,7 @@ int main() {
 }
 #endif
 
-//-------递归函数----------
+//=============递归函数===============
 #if 0
 #include <iostream>
 int fact(int n) {
