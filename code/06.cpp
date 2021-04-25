@@ -628,6 +628,7 @@ int main() {
 
 
 #if 0
+//inline 函数
 inline int add(const int x, const int y) {
     return x + y;
 }
@@ -636,17 +637,40 @@ int main() {
 }
 #endif
 
+
+// const表示一个对象不会改变,定义时必须初始化
+
+#if 1
+int main() {
+    const int c1 = 3; 
+   // const int c2; //错
+   // c1 = 4; //错
+
+    int i;
+    cin >> i;
+    const int c3 = i; //可以用non-const等初始化
+    int arr[c1]; 
+    int arr3[c3]; 
+}
+#endif
+
 //constexpr关键字可以用来修饰一个变量或函数，
-//表示这个变量或函数的值是编译时可评估的。
-//也就是说变量或函数的值是编译时就能确定的值且不会改变。
+//用于定义一个常量表达式。
 
 #if 0
-constexpr auto pi{ 3.14 };
-constexpr int I;
+//constexpr定义变量时，表示这是一个常量表达式，
+//其值编译时确定
+int  main() {
+    constexpr auto pi{ 3.14 };
+ //   constexpr int I; //错
+    int i{ 3 };
+    constexpr int ci = i;
+}
 #endif 
 
 #if 0
 //constexpr函数可以返回常量表达式
+//但是否是常量表达式取决于函数参数
 constexpr auto size1(int x) {
     int i{ 9 };	return i;
 }
@@ -676,8 +700,9 @@ const auto c{ size() };       //运行时常量，因为size()函数值运行时才能确定
 const auto d{ size1(a) };     //运行时常量，因a是变量，所以size1(a)不是常量表达式
 const auto e{ size1(b) };    //编译时常量，因b是常量表达式，所以size1(b)是常量表达式
 char arr[a], arr1[b], arr2[c], arr3[d], arr4[e];  //数组大小必须是常量表达式
-
 #endif 
+
+
 
 #if 1
 using color = char; //不同字符模拟像素颜色
