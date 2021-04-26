@@ -25,6 +25,9 @@
 
 
 #### YouTube频道列表：
+- [算法设计与分析](https://www.youtube.com/watch?v=UT6zeJvYarQ&list=PLBijWKRKPQMJmc-lgZGBRO8gxDP7cyzjt)
+- [C++17从入门到精通2021](https://www.youtube.com/watch?v=5g66lvmsM2I&list=PLBijWKRKPQMJMJy1EqyBMB8QlsBMMBnOW)
+- [2小时python快速入门 2021](https://www.youtube.com/watch?v=0sRY_ZqLO98&list=PLBijWKRKPQMLGvISxxx2S7ap-LOYDlruH)
 - [C语言快速入门（7小时）](https://www.youtube.com/playlist?list=PLBijWKRKPQMI11w6DDO6ZlfAfYkIuQYwM)
 - [从C到C++快速入门(2019版)： ](https://www.youtube.com/playlist?list=PLBijWKRKPQMLrjj9yT7TWW9Bc23l-aBLx)
 - [2 小时从C到C++快速入门： ](https://www.youtube.com/playlist?list=PLBijWKRKPQMIf5VxAa16muCQLnVeofvAn)
@@ -44,6 +47,12 @@
 
    <div align="center"> <img src="https://hwdong.net/img2/hwdong_pro.jpg" width="200"/> </div><br>
    
+- [解剖深度学习原理-从0编写深度学习课（视频课程）](https://ke.qq.com/course/2996033?tuin=ac5537fd) 
+
+- [C语言版数据结构（视频课程）](https://ke.qq.com/course/406944?tuin=ac5537fd)
+
+- [C++版数据结构（视频课程）](https://ke.qq.com/course/404761?tuin=ac5537fd)
+
 - C语言版数据结构（源代码）：[https://github.com/hwdong-net/ds/tree/master/C](https://github.com/hwdong-net/ds/tree/master//C)
 
 - C++版数据结构（源代码）：[https://github.com/hwdong-net/ds/tree/master/cplusplus](https://github.com/hwdong-net/ds/tree/master/cplusplus)
