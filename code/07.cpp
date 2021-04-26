@@ -1,4 +1,16 @@
+/*传统的过程式编程：
+变量 (对象)就是一些存储数据的内存块，而过程 (函数)对这些数据进行处理。
+*/
+
+/*
+ 面向对象设计与编程：程序是由不同种类的许多对象相互协作完成的。
+ 对象之间通过发送/接收消息来协作完成各种任务。
+ 由这些对象构成的程序也称为“对象式系统”.
+*/
+
 //------------用class或struct关键字定义一个类----
+//定义的类就是一个数据类型。
+
 #if 0
 #include <string>
 using std::string;
@@ -6,11 +18,18 @@ struct student {
 	string name;
 	double score;
 };
+
+//C++中变量也称为对象，对象是类（类型）的具体实例
+//如: student stu
+//通过成员访问运算符.访问类对象的成员
+//如：stu.score
+
 int main() {
 	student stu; //定义一个类的实例-对象
 	stu.name = "LiPing"; //成员访问运算符.访问类对象的成员
 	stu.score = 78.5;
-	//和内在类型一样，可以定义类类型的数组。存储一组类对象。
+
+	//和内在类型一样，可以定义类类型的数组，存储一组类对象。
 	student students[3];
 	students[0].name ="LiPing";
 	students[0].score = 60.5;
@@ -33,15 +52,16 @@ int main() {
 	p->score = 78;                //p指向的类对象的成员score
 	student students[3];
 	p = students + 2;         //指向第3个student对象
-	p->name = "Wang Wei";
-
-	
+	p->name = "Wang Wei";	
 }
 #endif
 
 #if 0
 //T是类类型，则T* 是T指针类型
 //T* 指针指向动态分配的一个或多个对象
+//如同int *是指向int类型变量的指针类型
+//同样可以用间接访问运算符 ->或解引用运算符*访问指针指向的变量
+
 #include <string>
 using std::string;
 struct student {
@@ -52,7 +72,7 @@ int main() {
 	student* p = new student;
 	p->name = "Wang";
 	delete p;                     //不需要的内存块要及时释放
-	p = new student[3];   //p指向3个student的内存块的起始地址
+	p = new student[3];   //p指向动态分配的3个student的内存块的起始地址
 	p[1].score = 67;
 	*(p + 1).score = 67;
 	p->score = 78;
@@ -60,7 +80,8 @@ int main() {
 #endif
 
 #if 0
-//类的成员函数
+//---类的成员函数----
+// 属于类作用域的函数，可以访问处理类（对象）的数据
 #include <iostream>
 #include <string>
 using std::string;
@@ -78,7 +99,7 @@ int main() {
 #endif 
 
 #if 0
-//类体外定义成员函数
+//可以在类体外 定义成员函数
 #include <iostream>
 #include <string>
 using std::string;
@@ -100,6 +121,8 @@ int main() {
 
 # if 0
 //----------this 指针-----
+//类的（非静态）成员函数都有一个this隐含参数，
+//它指向调用这个函数的那个对象
 #include <iostream>
 #include <string>
 using std::string;
@@ -149,6 +172,10 @@ int main() {
 
 #if 0
 //----------类对象的大小------------
+//一个类对象占据的内存存放的是其数据成员，
+//因此类对象的大小基本上等于或略大于所有数据成员占据内存之和。
+//为什么略大于所有数据成员之和呢？这是因为数据在内存里是要对齐存放的
+
 #include <iostream>
 class X {
 	int a, b, c;
@@ -160,6 +187,12 @@ int main() {
 	std::cout << sizeof(x) << '\t' << sizeof(X) << '\n';
 }
 #endif
+
+
+//==============构造函数==============
+//创建类对象时，会自动调用类的某个构造函数
+//没有定义构造函数，则编译器会自动生成一个
+//参数列表和函数体都为空的默认构造函数。 
 
 #if 0
 #include <iostream>
@@ -177,6 +210,8 @@ int main() {
 
 #if 0
 //---------（默认）构造函数-------------
+//构造函数：函数名和类名相同，没有返回类型
+//默认构造函数：不带参数、或参数都有默认值
 #include <iostream>
 class Date{
 	int year{ 2000 }, month{ 1 }, day{ 1 };
@@ -194,6 +229,7 @@ int main() {
 
 #if 0
 //---------构造函数-------------
+//如果定义了构造函数，则编译器就不会再生成默认构造函数
 #include <iostream>
 class Date {
 	int year{ 2000 }, month{ 1 }, day{ 1 };
@@ -211,35 +247,15 @@ int main() {
 
 	//Date day;    //错：没有合适的默认构造函数可用
 	Date day(2010, 1);  //错：没有重载函数接受 4 个参数
-
 }
-
 #endif 
 
-#if 0
-#include <iostream>
-class Date {
-	int year{ 2000 }, month{ 1 }, day{ 1 };
-public:	
-	//Date() {}
-	Date() = default;
-	Date(int y, int m, int d) {
-		year = y; month = m; day = d;
-		std::cout << "构造Date对象：" << '\t';
-		print();
-	}
-	void print() { std::cout << year << "-" << month << "-" << day << '\n'; }
-};
-int main() {
-	Date day(2018, 8, 18),	       //定义类对象时自动调用匹配的构造函数
-		day2;
 
-}
-
-#endif
 
 #if 0
 //---------（默认）构造函数-------------
+//和普通函数一样，类的成员函数（包括构造函数）的参数
+//也可以有默认值,并遵守默认参数一律靠右的规则.
 #include <iostream>
 class Date {
 	int year{ 2000 }, month{ 1 }, day{ 1 };
@@ -257,6 +273,8 @@ int main() {
 
 #if 0
 //---------default定义默认构造函数-------------
+//可以通过default关键字来通知编译器生成默认构造函数
+//不能定义多个默认构造函数，重定义！
 #include <iostream>
 class Date {
 	int year{ 2000 }, month{ 1 }, day{ 1 };
@@ -271,7 +289,29 @@ public:
 #endif 
 
 #if 0
+//可以定义多个构造函数
+#include <iostream>
+class Date {
+	int year{ 2000 }, month{ 1 }, day{ 1 };
+public:
+	//Date() {}
+	Date() = default;
+	Date(int y, int m, int d) {
+		year = y; month = m; day = d;
+		std::cout << "构造Date对象：" << '\t';
+		print();
+	}
+	void print() { std::cout << year << "-" << month << "-" << day << '\n'; }
+};
+int main() {
+	Date day(2018, 8, 18),	       //定义类对象时自动调用匹配的构造函数
+		day2;
+}
+#endif
+
+#if 0
 //-------初始化成员列表-----------
+// 在函数体外初始化类对象的成员，
 //仍然按照数据成员在Date中定义的次序即year、month、day的次序依次初始化。
 #include <iostream>
 class Date {
@@ -292,7 +332,104 @@ int main() {
 #endif 
 
 #if 0
+//为什么要初始化成员列表？
+//因为有些成员（如non-static const、引用变量、无默认构造函数类对象）
+//无法在构造函数体里初始化
+
+#if 1
+using namespace std;
+class X {
+	const int a;
+public:
+	X(int a) :a(a) {}  //Initializer list must be used
+	int get() { return a; }
+};
+
+int main() {
+	X x(10);
+	cout << x.get();
+	return 0;
+}
+#endif 
+
+#if 0
+using namespace std;
+class X {
+	const int &r;
+public:
+	X(int &b) :r(b) {}  //Initializer list must be used
+	int get() { return r; }
+};
+
+int main() {
+	int i = 20;
+	X x(i);
+	cout << x.get() << endl;
+	i = 30;
+	cout << x.get() << endl;
+	return 0;
+}
+#endif 
+
+#if 1
+#include <iostream>
+using namespace std;
+
+class A {
+	int i;
+public:
+	A(int);
+};
+
+A::A(int arg) {
+	i = arg;
+	cout << "A's Constructor called: Value of i: " << i << endl;
+}
+
+// Class B contains object of A
+class B {
+	A a;
+public:
+	B(int);
+};
+
+B::B(int x) :a(x) {  //Initializer list must be used
+	cout << "B's Constructor called";
+}
+
+int main() {
+	B obj(10);
+	return 0;
+}
+#endif 
+#endif 
+
+
+
+#if 0
 //-------拷贝构造函数----------
+//用已存在的同类对象对该类对象初始化。
+//如果没有定义拷贝构造函数，编译器会自动生成一个默认拷贝构造函数。
+#include <iostream>
+using std::cout;
+class Date {
+	int year{ 2000 }, month{ 1 }, day{ 1 };
+public:
+	Date(int y = 2000, int m = 1, int d = 1) :year{ y }, month(m), day(d){		}
+	void print() { std::cout << year << "-" << month << "-" << day << '\n'; }
+};
+
+int main() {
+	Date day{ 2018,1,1 }, day2{ day };
+	day.print();
+	day2.print();
+}
+
+
+#endif
+
+#if 0
+//可以定义自己的拷贝构造函数
 #include <iostream>
 class Date {
 	int year{ 2000 }, month{ 1 }, day{ 1 };
@@ -307,9 +444,7 @@ int main() {
 	Date day{ 2018,1,1 }, day2{ day };
 	day.print();
 	day2.print();	
-
 }
-
 #endif 
 
 #if 0
@@ -338,6 +473,7 @@ int main() {
 #endif
 
 #endif 
+
 
 #if 0
 //---------默认）赋值运算符operator=---------------
@@ -1061,7 +1197,7 @@ int main() {
 
 #endif
 
-#if 1
+#if 0
 //解决的办法是重新定义拷贝构造函数和赋值运算符。
 #define  _CRT_SECURE_NO_WARNINGS
 #include <iostream>
