@@ -74,8 +74,9 @@ int main() {
 	delete p;                     //不需要的内存块要及时释放
 	p = new student[3];   //p指向动态分配的3个student的内存块的起始地址
 	p[1].score = 67;
-	*(p + 1).score = 67;
+	(*(p + 1)).score = 67;
 	p->score = 78;
+	delete[] p;
 }
 #endif
 
@@ -94,6 +95,7 @@ struct student {
 int main() {
 	student stu;
 	stu.name = "LiPing"; //成员访问运算符.访问类对象的成员	
+	stu.score = 78.5;
 	stu.print();
 }
 #endif 
@@ -110,7 +112,9 @@ struct student {
 	void print();
 };
 
-void student::print() { cout << name << " " << score << '\n'; }
+void student::print() { 
+	cout << name << " " << score << '\n';
+}
 int main() {
 	student stu;
 	stu.name = "LiPing"; //成员访问运算符.访问类对象的成员	
@@ -199,10 +203,12 @@ int main() {
 class Date {
 	int year{ 2000 }, month{ 1 }, day{ 1 };
 public:
-	void print() { std::cout << year << "-" << month << "-" << day << '\n'; }
+	void print() {
+		std::cout << year << "-" << month << "-" << day << '\n'; 
+	}
 };
 int main() {
-	Date day, day1;  //day和day1都用默认构造函数构成
+	Date day, day1;  //day和day1都用默认构造函数
 	day.print();
 	day1.print();
 }
@@ -246,7 +252,7 @@ int main() {
 	//	day2{ 2019,6,1 };
 
 	//Date day;    //错：没有合适的默认构造函数可用
-	Date day(2010, 1);  //错：没有重载函数接受 4 个参数
+	Date day(2010, 1,3);  //错：没有重载函数接受 4 个参数
 }
 #endif 
 
@@ -267,7 +273,9 @@ public:
 };
 int main() {
 	Date day, day1(2011), day2{ 2019,6 },
-		day3{ 2019,13,8 };}
+		day3{ 2019,13,8 };
+	day2.print();
+}
 
 #endif 
 
@@ -279,12 +287,15 @@ int main() {
 class Date {
 	int year{ 2000 }, month{ 1 }, day{ 1 };
 public:
-	Date() = default;
-	Date(int y = 2000, int m = 1, int d = 1) {
+	Date() = default;//Date() {}
+	Date(int y , int m = 1, int d = 1) {
 		year = y; month = m; day = d;
 	}
 	void print() { std::cout << year << "-" << month << "-" << day << '\n'; }
 };
+int main() {
+	Date day;
+}
 
 #endif 
 
@@ -317,37 +328,43 @@ int main() {
 class Date {
 	int year{ 2000 }, month{ 1 }, day{ 1 };
 public:
-//	Date(int y = 2000, int m = 1, int d = 1) :year{ y }, month(m), day(d){		}	
-	Date(int y = 2000, int m = 1, int d = 1) : day(d), month(m), year{ y }{
-		
+//	Date(int y = 2000, int m = 1, int d = 1) 
+//	:year{ y }, month(m), day(d){		}	
+	Date(int y = 2000, int m = 1, int d = 1) 
+		: day(d), month(m), year{ y }{
+		//year = y; month = m; day = d;
+		std::cout << "创建一个date对象\n";
 	}
 	void print() { std::cout << year << "-" << month << "-" << day << '\n'; }
 };
 
 int main() {
-	Date day{ 2018,1,1 }, day2{ day };
+	Date day{ 2018,1,1 };	
 	day.print();
-	day2.print();
+	//Date day2{ day };
+	//day2.print();
 }
 #endif 
 
-#if 0
+#if 1
 //为什么要初始化成员列表？
 //因为有些成员（如non-static const、引用变量、无默认构造函数类对象）
 //无法在构造函数体里初始化
 
-#if 1
-using namespace std;
+#if 0
+#include <iostream>
 class X {
 	const int a;
 public:
-	X(int a) :a(a) {}  //Initializer list must be used
+	X(int x):a(x) {
+		
+	}  //Initializer list must be used
 	int get() { return a; }
 };
 
 int main() {
 	X x(10);
-	cout << x.get();
+	std::cout << x.get();
 	return 0;
 }
 #endif 
@@ -357,7 +374,9 @@ using namespace std;
 class X {
 	const int &r;
 public:
-	X(int &b) :r(b) {}  //Initializer list must be used
+	X(int &b) :r(b) {//Initializer list must be used
+		//r = b;
+	}  
 	int get() { return r; }
 };
 
@@ -371,7 +390,7 @@ int main() {
 }
 #endif 
 
-#if 1
+#if 0
 #include <iostream>
 using namespace std;
 
@@ -394,6 +413,7 @@ public:
 };
 
 B::B(int x) :a(x) {  //Initializer list must be used
+	
 	cout << "B's Constructor called";
 }
 
@@ -435,7 +455,9 @@ class Date {
 	int year{ 2000 }, month{ 1 }, day{ 1 };
 public:
 	//	Date(int y = 2000, int m = 1, int d = 1) :year{ y }, month(m), day(d){		}
-	Date(const Date& d) :year{ d.year }, month(d.month), day(d.day){}
+	Date(const Date& d) :year{ d.year }, month(d.month), day(d.day){
+		std::cout << "拷贝构造函数\n";
+	}
 	Date(int y = 2000, int m = 1, int d = 1) : day(d), month(m), year{ y }{	}
 	void print() { std::cout << year << "-" << month << "-" << day << '\n'; }
 };
@@ -453,22 +475,23 @@ int main() {
 class X {	
 public:
 	X() = default;
-	X(X x) {}
+	X(X s) {}
 };
 int main() {
 	X x;
-	X y(x);
-}
+	X y(x); //
+}  
 #else
 class X {
 public:
 	X() = default;
-	X(const X &x) {}
+	X( const X &x) {}
 	//X& operator=(const X& object) { return *this; }
 };
 int main() {
-	 X a;
-	X y(a);
+	const X a;
+	X b;
+	X y(a),y2(b);
 }
 #endif
 
@@ -504,7 +527,8 @@ int main() {
 //如：
 class X {
 	X& operator=(const X& object) {
-		   return *this;
+		//...
+		return *this;
   }
 };
 #include <iostream>
@@ -521,6 +545,7 @@ public:
 		return *this; //返回被赋值对象自身的引用
 	}
 };
+//a=b=c
 
 #if 0
 //---------赋值运算符operator=-右结合性--------------
