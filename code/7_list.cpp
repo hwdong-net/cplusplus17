@@ -1,153 +1,134 @@
-#include <iostream>
 #if 0
-class IntArray {
-	int* data{ nullptr };      //指针变量指向动态分配的内存块
-	int size{ 0 };            //data指向的动态数组的大小
-public:
-	IntArray(int s) :size(s) {
-		data = new int[s];    //分配一块动态内存，地址保存在data中
-		if (data)  size = s;
-		std::cout << "构造了一个大小是" << s << "的IntArray对象\n";
-	}
-	~IntArray() {
-		std::cout << "析构函数\n";
-		if (data) delete[] data;  //释放data指向的动态内存
-	}
-	void put(int i, int x) {
-		if (i >= 0 && i < size) data[i] = x;
-	}
-	int get(int i) {
-		if (i >= 0 && i < size) return data[i];
-		else return 0;
-	}
+using ElemType = char;      //假设数据元素的类型是ElemType
+struct LNode {             //struct定义的类的成员默认是公开的
+	ElemType data;
+	LNode* next{ nullptr };  //next是指向下一个元素结点的指针变量
 };
-
-#include <vector>
-int main(){
-	//int ages[5];//静态数组
-	
-	std::vector<int> ages;
-	ages.push_back(3);
-	ages.push_back(45);
-	ages.size();
-}
 #endif
-/*
-struct student {
-	string name;
-	double score;
-};
-using ElemType = student;   //假设数据元素类型ElemType是char类型
-*/
-using ElemType = char;   //假设数据元素类型ElemType是char类型
-class Vector{
-	ElemType* data{ nullptr };   //空间起始地址
-	int  capacity{ 0 }, n{ 0 };   //空间容量和实际元素个数，初始化为0
+
+using ElemType = char;      //假设数据元素的类型是ElemType
+class List {
+	struct LNode {    //struct定义的类的成员默认是公开的
+		ElemType data;
+		LNode* next{ nullptr }; //next是指向下一个元素结点的指针变量
+	};
+	LNode* head;         //指向头结点的指针变量
 public:
-	Vector(const int cap = 5)   //创建容量是cap的一个线性表
-		:capacity{ cap }, data{ new ElemType[cap] }	{}
+	//初始化一个不含任何数据只有头结点的空的链表
+	List() :head{ new LNode{} } {}
+
 	bool insert(const int i, const ElemType& e); //在i处插入元素
 	bool erase(const int i);            //删除i元素
+	LNode* locate(const int i)const;
+
 	bool push_back(const ElemType& e); //表的最后添加一个元素
 	bool pop_back();  //删除表的最后元素
-	//bool insert_front(const ElemType e);
-	//bool pop_front();
-	//bool find(const ElemType e);
+
+	bool push_front(const ElemType& e); //插入元素成为第一个元素（首结点）
+	bool pop_front();  //删除首结点
 
 	bool get(const int i, ElemType& e)const; //读取i元素
-	bool set(const int i, const ElemType e);//修改i元素
-	int size() const { return n; }  //查询表长
-private:
-	bool add_capacity();             //扩充容量
+	bool set(const int i, const ElemType e);//修改i元素	
+	int size() const;  //查询表长
 };
 
-bool Vector::add_capacity() {
-	ElemType* temp = new ElemType[2 * capacity];   //分配2倍大小的更大空间
-	if (!temp) return false;                         //申请内存失败
-	for (auto i = 0; i < n; i++) {                     //将原空间data数据拷贝到新空间temp
-		temp[i] = data[i];
+bool List::push_front(const ElemType& e) {
+	LNode* p = new LNode;     //创建一个新的结点
+	if (!p) return false;          //分配内存失败!
+	p->data = e;               //将新数据放入p指向的新结点的data成员中
+	p->next = head->next;       //p的next指针指向原来的首结点
+	head->next = p;            //head的next指向p指向的新结点，即新结点成为首结点。
+}
+
+bool List::pop_front() {
+	if (!head->next) return false;   //空表
+	LNode* p = head->next;      //p指向要删除的首结点
+	head->next = p->next;        //head的next指向p的后一个结点，即跳过首结点
+	delete p;                   //删除原来的首结点
+	return true;
+}
+int List::size()const {
+	LNode* p{ head }; auto i{ 0 };  //p指向头结点，计数器i为0
+	p = p->next;               //p指向首结点，
+	while (p) {                 //p不是空指针，表示遇到一个结点
+		i++;                  //计数器增加1
+		p = p->next;           //p指向下一个结点
 	}
-	delete[] data;                               //释放原来空间内存
-	data = temp;                                //data指向新的空间temp
-	capacity *= 2;                              //修改容量
-	return true;
+	return i;
+}
+List::LNode* List::locate(const int i)const {
+	if (i < 0) return nullptr;//插入位置不合法
+	LNode* p{ head }; auto j{ 0 };//p指向头结点，计数器i尾0
+	while (p && j < i) {
+		p = p->next;  //p指向下一个结点
+		j++;
+	}
+	return p;
 }
 
-//(a0,a1,..., e,  ai,...   an-1)
-bool Vector::insert(const int i, const ElemType& e) {
-	if (i < 0 || i > n) return false;          //插入位置合法吗？
-	if (n == capacity && !add_capacity())   //已满，增加容量
-		return false;
-	for (auto j = n; j > i; j--)             //将n-1到i的元素都向后移动一个位置
-		data[j] = data[j - 1];           //j-1移到j位置上
-	data[i] = e;
-	n++;                            //不要忘记修改表长
-	return true;
+bool List::erase(const int i) {     //删除i元素
+	LNode* p = locate(i - 1);          //定位i-1号结点	
+	if (p) {                        //如果p指向的第i-1号结点存在
+		LNode* q = p->next;       //q保存要删除的结点地址
+		p->next = q->next;         //使p的next指针跳过q结点
+		delete q;                 // 删除q指向的那个结点
+		return true;
+	}
+	return false;                   //i超出了表长
 }
 
-bool Vector::erase(const int i) {
-	if (i < 0 || i >= n) return false;    //位置i合法吗？
-	 //i+1到n-1元素依次向前移动一个位置
-	for (auto j = i; j < n - 1; j++)
-		data[j] = data[j + 1];       //j+1移到j位置上
-	n--;                         // 不要忘了：表长变量减去1。
+bool List::insert(const int i, const ElemType& e) {
+	LNode* p = locate(i - 1);             //定位i-1号结点	
+	if (p) {                          //p指向的第i-1号结点存在
+		LNode* q = new LNode;       //q指向分配的新结点内存块
+		if (!q) return false;
+		q->data = e;
+		q->next = p->next;            //将p的后继结点挂到q的后面
+		p->next = q;                 //将q指向的结点挂到p的后面
+		return true;
+	}
 	return false;
 }
-
-bool Vector::push_back(const ElemType& e) {
-	if (n == capacity && !add_capacity())    //空间满就扩容
-		return false;
-	data[n] = e;
-	n++;
-	//data[n++] = e;                      //e放入下标n位置，然后n++
-	return true;
-}
-bool Vector::pop_back() {
-	if (n == 0) return false;          //空表
-	n--;                         //n减去1就相当于删除了表尾元素
-	return true;
-}
-
-bool Vector::get(const int i, ElemType& e)const {
-	if (i >= 0 && i < n) {  //下标是否合法？
-		e = data[i]; return true;
+bool List::get(const int i, ElemType& e)const {
+	LNode* p = locate(i);//定位i号结点	
+	if (p) {
+		e = p->data; return true;
 	}
 	return false;
 }
-//修改i元素的值
-bool Vector::set(const int i, const ElemType e) {
-	if (i >= 0 && i < n) {  //下标是否合法？
-		data[i] = e; return true;
+bool List::set(const int i, const ElemType e) {
+	LNode* p = locate(i);//定位i号结点	
+	if (p) {
+		p->data = e; return true;
 	}
 	return false;
 }
 
 #include <iostream>
-void print(const Vector& v) {   //输出线性表中的所有元素
-	ElemType ele;
-	//遍历每一个下标i:0,1,…,size()-1
-	for (auto i = 0; i != v.size(); i++) {
-		v.get(i, ele);   //通过e返回下标i处的元素值 
-		std::cout << ele << '\t';
+void print(const List& v) {
+	ElemType e;
+	for (auto i = 1; i <= v.size(); i++) {
+		v.get(i, e);
+		std::cout << e << '\t';
 	}
 	std::cout << std::endl;
 }
 
 int main() {
-	Vector v(2);           //创建容量是2的空线性表
-	v.push_back('a');     //线性表最后添加一个元素’a’
-	v.push_back('b');     //线性表最后添加一个元素’b’
-	v.push_back('c');
-	v.insert(1, 'd');    //下标1处插入一个元素’d’
+	List v;
+	v.push_front('a');
+	v.push_front('b');
+	v.push_front('c');
+	print(v);
+	v.insert(1, 'd');
 	print(v);
 	ElemType e;
-	v.get(1, e);         //查询下标1处的元素值
+	v.get(1, e);
 	std::cout << e << '\n';
-	v.set(1, 'f');       //修改下标1处的元素值为’f’
+	v.set(1, 'f');
 	print(v);
-	v.erase(2);          //删除下标2处的元素
+	v.erase(2);
 	print(v);
-	v.pop_back();       //删除最后一个元素
+	v.pop_front();
 	print(v);
 }
-
