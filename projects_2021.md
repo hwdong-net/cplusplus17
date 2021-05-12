@@ -6,4 +6,5 @@
 
 参考:
 
+[5 Text-Based Adventure Games You Can Play in Your Browser](https://www.makeuseof.com/tag/browser-text-based-games/)
 [How to Create your own Text Adventure](https://medium.com/coinmonks/how-to-create-your-own-text-adventure-12df36411b7f)
