@@ -3,3 +3,7 @@
 并体验剧情。 通常这类游戏都是由玩家扮演角色在游戏世界中漫游，
 而一路上的各种遭遇（如战斗、交谈、会见重要人物等）则是玩家人物成长及游戏进行的重要关键所在。
 [角色扮演游戏](https://zh.wikipedia.org/wiki/%E8%A7%92%E8%89%B2%E6%89%AE%E6%BC%94%E6%B8%B8%E6%88%8F)
+
+参考:
+
+[How to Create your own Text Adventure](https://medium.com/coinmonks/how-to-create-your-own-text-adventure-12df36411b7f)
