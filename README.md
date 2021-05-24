@@ -23,6 +23,12 @@
 + 《C++17从入门到精通》清华大学出版社，2009年9月出版）。还在学习传统的C++98标准吗？为什么看不懂工业界的C++代码？本书带小白轻松掌握现代C++17!
 + 《Python3从入门到实战》（电子工业出版社出版）. 语法和项目实战结合的python教材，通俗容懂，配有许多实战小项目如游戏编程、机器学习案例。
 
+#### 推荐课程
+
+- [解剖深度学习原理-从0实现深度学习库](https://ke.qq.com/course/2996033?tuin=ac5537fd)
+- [C语言版数据结构2019](https://ke.qq.com/course/406944?tuin=ac5537fd)
+- [C++版数据结构2019](https://ke.qq.com/course/404761?tuin=ac5537fd)
+- [算法设计与分析](https://edu.csdn.net/course/detail/32740)
 
 #### YouTube频道列表：
 - [算法设计与分析](https://www.youtube.com/watch?v=UT6zeJvYarQ&list=PLBijWKRKPQMJmc-lgZGBRO8gxDP7cyzjt)
