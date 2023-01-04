@@ -8,36 +8,21 @@ C++内在的数组提供了存储同类型多个元素的一种数据结构。
 
 ### arrays(数组)
 
-C++ 中的数组用于存储相同类型的值的集合。数组的大小在声明时指定，之后不能更改。可以用下标运算符访问数组的元素。
-
+C++ 中的数组用于存储相同类型的值的集合。数组的大小在声明时指定，之后不能更改。
 ```cpp
-#include <iostream>
-
-using namespace std;
-
-int main()
-{
-  char vowels[5] = {'a', 'e', 'i', 'o', 'u'};
-  
-  std::cout << vowels[2];	// Outputs: i
- 
-  char game[3][3] = {
-    {'x', 'o', 'o'} , 
-    {'o', 'x', 'x'} , 
-    {'o', 'o', 'x'}  
-  };
-  
-   std::cout << game[0][2];	// Outputs: o
-  
-  return 0;
-}
+int x[256];              //声明时指定大小
+const char str[] = 'This is a string";  // 通过初始化指明大小
+char vowels[ ] = {'a', 'e', 'i', 'o', 'u'};
 ```
 除了静态数组，还可以用动态内存分配运算符new分配动态的数组空间。如：
 ```cpp
-int * array = new int[5]; 
-for(int i = 0 ; i<5;i++)
-   array[i]  = 2*i+1;
-delete[] array;
+int * arr = static_cast<int*>(malloc(256 * sizeof(int)));
+char *srr = new char[10];
+```
+可以用下标运算符访问数组的元素。
+```cpp
+int t = x[28];
+arr[0] = t;
 ```
 
 除了内在的静态数组和动态数组外，C++的容器库（containers library）实现了程序员经常需要使用的通用数据结构。容器是存储元素集合（即其他对象）的对象。这些容器中的每一个都管理其元素的存储空间，并通过迭代器和/或成员函数提供对每个元素的访问。C++的容器库包含一些模板和算法。
