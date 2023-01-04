@@ -25,6 +25,21 @@ int t = x[28];
 arr[0] = t;
 ```
 
+下标访问的本质是对指针进行偏移：
+```cpp
+cout<<x[3]<< *(x+3)<<endl;
+```
+通过指针访问内存数组的特点：
+
+- When arrays are passed into functions, they decay into a simple pointer
+ - Built-in arrays and pointers provide no bounds checking. The [] operator will allow you to write to any offset you want.
+- You must keep track of array size separately
+    - sizeof() only returns the correct size for statically allocated arrays when used in the same context you allocated them in
+    - Do you keep track of size in bytes or elements? Will you remember the correct interpretation throughout your entire call chain?
+- You must supply the size as an argument to functions which require array input
+- You must remember whether your array is statically or dynamically allocated
+- You must remember to free your dynamically allocated arrays
+
 除了内在的静态数组和动态数组外，C++的容器库（containers library）实现了程序员经常需要使用的通用数据结构。容器是存储元素集合（即其他对象）的对象。这些容器中的每一个都管理其元素的存储空间，并通过迭代器和/或成员函数提供对每个元素的访问。C++的容器库包含一些模板和算法。
 
 C++ 容器库将容器分为四种类型：
