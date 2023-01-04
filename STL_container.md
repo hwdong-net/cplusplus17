@@ -29,7 +29,7 @@ arr[0] = t;
 ```cpp
 cout<<x[3]<< *(x+3)<<endl;
 ```
-通过指针访问内存数组的特点：
+通过指针访问内在数组的特点：
 
 - When arrays are passed into functions, they decay into a simple pointer
  - Built-in arrays and pointers provide no bounds checking. The [] operator will allow you to write to any offset you want.
