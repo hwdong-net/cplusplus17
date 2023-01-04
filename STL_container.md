@@ -48,12 +48,12 @@ C++ 容器库将容器分为四种类型：
 - 序列容器适配器：stack(堆栈),queue(队列), priority_queue（优先队列）
 - 关联容器
   -  Keys are unique
-        set is a collection of unique keys, sorted by keys
-        map is a collection of key-value pairs, sorted by keys
-        set and map are typically implemented using red-black trees
+       - set is a collection of unique keys, sorted by keys
+       - map is a collection of key-value pairs, sorted by keys
+       - set and map are typically implemented using red-black trees
   - Multiple entries for the same key are permitted
-        multiset is a collection of keys, sorted by keys
-        multimap is a collection of key-value pairs, sorted by keys
+       - multiset is a collection of keys, sorted by keys
+       - multimap is a collection of key-value pairs, sorted by keys
 - 无序关联容器
 
 
