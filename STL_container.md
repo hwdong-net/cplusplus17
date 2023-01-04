@@ -4,9 +4,12 @@
 [https://en.cppreference.com/w/cpp/container](https://en.cppreference.com/w/cpp/container)
 [https://cplusplus.com/reference/stl/](https://cplusplus.com/reference/stl/)
 
+C++内在的数组提供了存储同类型多个元素的一种数据结构。
+
 ### arrays(数组)
 
 C++ 中的数组用于存储相同类型的值的集合。数组的大小在声明时指定，之后不能更改。可以用下标运算符访问数组的元素。
+
 ```cpp
 #include <iostream>
 
@@ -36,6 +39,17 @@ for(int i = 0 ; i<5;i++)
    array[i]  = 2*i+1;
 delete[] array;
 ```
+
+除了内在的静态数组和动态数组外，C++的容器库（containers library）实现了程序员经常需要使用的通用数据结构。容器是存储元素集合（即其他对象）的对象。这些容器中的每一个都管理其元素的存储空间，并通过迭代器和/或成员函数提供对每个元素的访问。C++的容器库包含一些模板和算法。
+
+C++ 容器库将容器分为四种类型：
+
+- 序列容器
+- 序列容器适配器
+- 关联容器
+- 无序关联容器
+
+
 ### vector (向量)
 
 vector是C++的模板类，可以通过指定数据元素的类型实例化一个具体的vector实例类，如vector<int> 是数据元素类型是int的一个vector类。
