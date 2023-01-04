@@ -46,7 +46,7 @@ C++ 容器库将容器分为四种类型：
 
 - 序列容器：array（静态连续数组），vector（动态连续数组）,forward_list(单链表),list（双向链表）,deque（双端队列）
 - 序列容器适配器：stack(堆栈),queue(队列), priority_queue（优先队列）
-- 关联容器
+- 关联容器 : 关联容器提供排序的数据结构，使用键提供快速查找（O(log n) 时间）。
   -  Keys are unique
        - set is a collection of unique keys, sorted by keys
        - map is a collection of key-value pairs, sorted by keys
@@ -54,7 +54,13 @@ C++ 容器库将容器分为四种类型：
   - Multiple entries for the same key are permitted
        - multiset is a collection of keys, sorted by keys
        - multimap is a collection of key-value pairs, sorted by keys
-- 无序关联容器
+- 无序关联容器:无序关联容器提供可以使用散列访问的未排序数据结构。最坏情况下的访问时间为 O(n)，但对于大多数操作而言，访问时间比线性时间快得多。
+ - Keys are unique
+    - unordered set is a collection of keys, hashed by keys
+    - unordered_map is a collection of key-value pairs, hashed by keys
+ - Multiple entires for the same key are permitted
+    - unordered_multiset is a collection of keys, hashed by keys
+    - unordered_multimap is a collection of key-value pairs, hashed by keys
 
 
 ### vector (向量)
