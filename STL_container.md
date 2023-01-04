@@ -36,3 +36,15 @@ for(int i = 0 ; i<5;i++)
    array[i]  = 2*i+1;
 delete[] array;
 ```
+### vector (向量)
+
+vector是C++的模板类，可以通过指定数据元素的类型实例化一个具体的vector实例类，如vector<int> 是数据元素类型是int的一个vector类。
+vector<>类的对象和数组一样，可以通过下标访问其元素，但vector<>类对象大的空间可以自动动态增长而不用担心空间不足的问题。
+```cpp
+  std::vector <int> ints = {1,2,3,4,5};
+  ints.push_back(11);
+  ints.push_back(13);
+  for(int i = 0 ; i<ints.size();i++)
+         cout<<ints[i];
+```
+  
