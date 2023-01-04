@@ -48,8 +48,8 @@ vector<>类的对象和数组一样，可以通过下标访问其元素，但vec
          cout<<ints[i];
 ```
 vector<>的常用操作有：
-  . push_back(): add element to the end of the vector.
-  . pop_back(): remove element from the end of the vector.
-  . size(): return the size of the vector.
-  . empty(): return whether the vector is empty.
+  - push_back(): 在最后添加一个元素
+  - pop_back(): 删除最后一个元素
+  - size(): 返回实际元素个数
+  - empty(): 判断是否空？
   
