@@ -24,7 +24,7 @@ int main()
     {'o', 'o', 'x'}  
   };
   
-	std::cout << game[0][2];	// Outputs: o
+   std::cout << game[0][2];	// Outputs: o
   
   return 0;
 }
