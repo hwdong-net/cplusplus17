@@ -91,4 +91,16 @@ vector<>的常用操作有：
 }
 ```
   
+### set
+  在 C++ 中，集合（set）是包含唯一元素集合的数据结构。集合set的元素由它们自己的值或键索引。集合不能包含重复元素。一旦将元素添加到集合中，就无法修改该元素。
+  C++的集合类型主要有unordered_set （无序集合） 和 set（有序集合）。前者用哈希表数据结构实现，后者用红黑树实现。
+  
+  主要操作如下：
+  - insert(): add an element to the set.
+  - erase(): removes an element from the set.
+  - count(): check whether an element exists in the set.
+  - size(): return the size of the set.
+  
+  
+  
   
