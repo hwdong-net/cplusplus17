@@ -74,15 +74,15 @@ vector<>的常用操作有：
   }
   // Outputs: 1 2 3
   
-  std::queue<int> order;
+  std::queue<int> Q;
 
-  order.push(10);
-  order.push(9);
-  order.push(8);
+  Q.push(10);
+  Q.push(9);
+  Q.push(8);
   
-  while(!order.empty()) {
-    std::cout << order.front() << " ";
-    order.pop();
+  while(!Q.empty()) {
+    std::cout << Q.front() << " ";
+    Q.pop();
   }
   // Outputs: 10 9 8
 
