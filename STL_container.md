@@ -45,7 +45,7 @@ delete[] array;
 C++ 容器库将容器分为四种类型：
 
 - 序列容器：array（静态连续数组），vector（动态连续数组）,forward_list(单链表),list（双向链表）,deque（双端队列）
-- 序列容器适配器
+- 序列容器适配器：stack(堆栈),queue(队列), priority_queue（优先队列）
 - 关联容器
 - 无序关联容器
 
