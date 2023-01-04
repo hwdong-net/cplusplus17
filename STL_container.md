@@ -52,4 +52,42 @@ vector<>的常用操作有：
   - pop_back(): 删除最后一个元素
   - size(): 返回实际元素个数
   - empty(): 判断是否空？
+  - erase(it) : 删除某个位置it的元素
+  - insert(it,e): 位置it处插入一个元素
+  
+### Stacks and Queues
+  堆栈是stack一个Last-In-First-Out context (LIFO)的结构，元素只能在栈顶插入(push())或删除(pop())。
+  
+  队列queue是一个First-In-First-Out context (FIFO)的结构，元素只能在队尾插入(push())或删除队头元素(pop())。
+  ```cpp
+  int main()
+{
+  std::stack<int> tower;
+  
+  tower.push(3);
+  tower.push(2);
+  tower.push(1);
+  
+  while(!tower.empty()) {
+    std::cout << tower.top() << " ";
+    tower.pop();
+  }
+  // Outputs: 1 2 3
+  
+  std::queue<int> order;
+
+  order.push(10);
+  order.push(9);
+  order.push(8);
+  
+  while(!order.empty()) {
+    std::cout << order.front() << " ";
+    order.pop();
+  }
+  // Outputs: 10 9 8
+
+  return 0;
+}
+```
+  
   
