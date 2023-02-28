@@ -8,8 +8,8 @@ int main() {
 	auto paddle_w{4}, paddle_h{10};   //挡板的长宽
 	auto paddle1_x{0}, paddle1_y{HEIGHT/2-paddle_h/2}, paddle1_vec{3}; //挡板1位置及速度
 	auto paddle2_x{ WIDTH - paddle_w }, 
-paddle2_y{ HEIGHT/2 - paddle_h/2 }, paddle2_vec{3}; //挡板2位置及速度
-auto score1{ 0 }, score2{ 0 };  //双方的得分
+               paddle2_y{ HEIGHT/2 - paddle_h/2 }, paddle2_vec{3}; //挡板2位置及速度
+        auto score1{ 0 }, score2{ 0 };  //双方的得分
 	return 0;
 }
 ```
