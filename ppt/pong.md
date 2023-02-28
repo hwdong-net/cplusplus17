@@ -60,3 +60,21 @@ for (auto y = 0; y <= HEIGHT; y++) {
 	std::cout << '\n' ;
 }
 ```
+
+游戏是一个循环，循环每一步绘制新的画面：
+```cpp
+初始化游戏数据
+循环（直到游戏结束）{
+    处理事件（如用户输入、定时器）
+    更新游戏状态（游戏中的数据）
+    绘制游戏画面
+}
+```
+清楚游戏画面：
+```cpp
+#include <windows.h>
+void gotoxy(int x, int y){
+    COORD coord = {x, y};
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+```
