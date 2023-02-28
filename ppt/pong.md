@@ -187,3 +187,34 @@ int main() {
    return 0;
 }
 ```
+
+// 2. 碰撞检测和更新数据 
+```cpp
+ball_x += ball_vec_x;
+ball_y += ball_vec_y;
+if (ball_y < 0 || ball_y >= HEIGHT)           //和上下墙碰撞，改变垂直速度方向
+   ball_vec_y = -ball_vec_y;
+        
+if (ball_x < paddle_w&& ball_y >= paddle1_y && ball_y < paddle1_y + paddle_h)
+{ //和左挡板碰撞，改变水平速度的方向
+    ball_vec_x = -ball_vec_x;
+    score1 += 1;
+}
+else if(ball_x >WIDTH - paddle_w && ball_y >= paddle2_y 
+  && ball_y < paddle2_y + paddle_h)
+ { //和右挡板碰撞，改变水平速度的方向
+    ball_vec_x = -ball_vec_x;
+    score2 += 1;
+}
+		
+bool is_out{ false };              //是否跑出沟渠的bool标志
+if (ball_x < 0) {score2 += 1; is_out = true;		}
+else if (ball_x >WIDTH-paddle_w) {score1 += 1; is_out = true;	}
+if (is_out) {                  //跑出左右沟渠，球回到中心并以新的随机速度出发
+  ball_x = WIDTH / 2; ball_y = HEIGHT / 2;
+  ball_vec_x = rand() % 3 + 1;
+  ball_vec_y = rand() % 3 + 1;
+  if (rand() % 2 == 1) ball_vec_x = -ball_vec_x;
+  if (rand() % 2 == 1) ball_vec_y = -ball_vec_y;
+}
+```
