@@ -39,3 +39,24 @@ int main() {
 	std::cout << '\n';
 }
 ```
+
+绘制挡板和球：
+```cpp
+for (auto y = 0; y <= HEIGHT; y++) {		
+		for (auto x = 0; x <= WIDTH; x++)
+			if(x==ball_x&&y==ball_y)                            //球的位置
+				std::cout << 'O';
+			else if (y>= paddle1_y &&y < paddle1_y + paddle_h
+				&&x>= paddle1_x && x < paddle1_x + paddle_w) {   //左挡板位置
+				std::cout << 'Z';
+			}
+			else if (y >= paddle2_y && y < paddle2_y + paddle_h
+				&& x >= paddle2_x && x < paddle2_x + paddle_w) {   //右挡板位置
+				std::cout << 'Z';
+			}
+			else if (x == 0 || x == WIDTH  / 2 || x == WIDTH)         //竖线位置
+				std::cout << '|';
+			else std::cout << ' ';
+		std::cout << '\n' ;
+}
+```
