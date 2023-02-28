@@ -1,3 +1,4 @@
+初始化
 ```cpp
 #include <iostream>
 using namespace std;
@@ -11,5 +12,30 @@ int main() {
                paddle2_y{ HEIGHT/2 - paddle_h/2 }, paddle2_vec{3}; //挡板2位置及速度
         auto score1{ 0 }, score2{ 0 };  //双方的得分
 	return 0;
+}
+```
+绘制场景
+```cpp
+int main() {
+	//…
+
+	//2. 绘制场景
+	//2.1绘制背景
+	//2.1.1 先绘制背景中的顶部墙	
+	for (auto x = 0; x <= WIDTH; x++)
+		std::cout << '=';
+	std::cout << '\n';
+	//2.1.2 绘制背景中的3条的竖线	
+	for (auto y = 0; y <= HEIGHT; y++) {		
+		for (auto x = 0; x <= WIDTH; x++)
+			if (x == 0 || x == WIDTH / 2 || x == WIDTH)
+				std::cout << '|';
+			else std::cout << ' ';
+		std::cout << '\n' ;
+	}
+	//2.1.3 绘制背景中的底部墙	
+	for (auto x = 0; x <= WIDTH; x++)
+		std::cout << '=';
+	std::cout << '\n';
 }
 ```
