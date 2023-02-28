@@ -17,7 +17,7 @@ int main() {
 绘制场景
 ```cpp
 int main() {
-	//…
+        //…
 
 	//2. 绘制场景
 	//2.1绘制背景
@@ -27,15 +27,15 @@ int main() {
 	std::cout << '\n';
 	//2.1.2 绘制背景中的3条的竖线	
 	for (auto y = 0; y <= HEIGHT; y++) {		
-		for (auto x = 0; x <= WIDTH; x++)
-			if (x == 0 || x == WIDTH / 2 || x == WIDTH)
-				std::cout << '|';
-			else std::cout << ' ';
+           for (auto x = 0; x <= WIDTH; x++)
+	     if (x == 0 || x == WIDTH / 2 || x == WIDTH)
+		std::cout << '|';
+	     else std::cout << ' ';
 		std::cout << '\n' ;
 	}
 	//2.1.3 绘制背景中的底部墙	
 	for (auto x = 0; x <= WIDTH; x++)
-		std::cout << '=';
+	   std::cout << '=';
 	std::cout << '\n';
 }
 ```
