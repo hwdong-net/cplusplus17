@@ -175,9 +175,9 @@ int main() {
 	     else if (x == 0 || x == WIDTH / 2 || x == WIDTH)
 		 std::cout << '|';
 	     else std::cout << ' ';
-	}
-	std::cout << '\n';
-     }
+	 }
+	 std::cout << '\n';
+      }
 
      //3.1.3 绘制背景中的底部墙	
      for (auto x = 0; x <= WIDTH; x++)
