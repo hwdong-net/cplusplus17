@@ -70,7 +70,7 @@ for (auto y = 0; y <= HEIGHT; y++) {
     绘制游戏画面
 }
 ```
-清楚游戏画面：
+清除游戏画面：
 ```cpp
 #include <windows.h>
 void gotoxy(int x, int y){
@@ -78,3 +78,21 @@ void gotoxy(int x, int y){
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 ```
+只要在每次绘制新的画面前，调用这个函数gotoxy(0,0)将光标定位在左上角就相当于清除了屏幕的内容。
+
+隐藏光标
+```cpp
+void hideCursor(){
+   CONSOLE_CURSOR_INFO cursor_info = {1, 0};
+   SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+}
+```
+给球一个随机的初始速度
+```cpp
+srand((unsigned)time(0));                 //生成随机数种子	
+    ball_vec_x = rand() % 3 + 1;                //生成一个随机整数，表示x和y方向的速度大小
+    ball_vec_y = rand() % 3 + 1;
+    if (rand() % 2 == 1) ball_vec_x = -ball_vec_x;  //随机改变初始的速度方向
+    if (rand() % 2 == 1) ball_vec_y = -ball_vec_y;
+```
+srand()函数用于生成一个随机数种子，然后用rand()函数生成一个整数，通过%运算，使得代表速度的整数不至于过大。
