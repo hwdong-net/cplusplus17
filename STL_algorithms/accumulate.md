@@ -11,7 +11,7 @@ constexpr T accumulate( InputIt first, InputIt last, T init,
 Computes the sum of the given value **init** and the elements in the range **[first,last)** .
 The meaning of the **sum** can be defined by op.   
 
-std::accumulate performs fold operation using f function on range [first, last) starting with init as accumulator value.
+std::accumulate performs fold operation using op operation (function) on range [first, last) starting with init as accumulator value.
 
 
 
