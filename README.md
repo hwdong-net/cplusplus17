@@ -5,11 +5,8 @@
 ### 教学资源
 
 - [youtube channel 频道: hwdong](http://www.youtube.com/c/hwdong)
-- [blog 博客：](https://hwdong-net.github.io)
+- [blog 博客：https://hwdong-net.github.io](https://hwdong-net.github.io)
 - **[B站编程课程](https://space.bilibili.com/281453312/pugv)** **推荐**
-- [推特 :](https://twitter.com/hwdong)
-- [电报群：](https://t.me/hwdong)
-- QQ群：376330161
 - [medium:](https://medium.com/@hwdong)
 
 #### 我写的3本书
