@@ -9,7 +9,9 @@
 - **[B站编程课程](https://space.bilibili.com/281453312/pugv)** **推荐**
 - [medium:](https://medium.com/@hwdong)
 
-#### 我写的3本书
+## [B站课程](https://space.bilibili.com/281453312/pugv)
+
+### 我写的3本书
 
    （没有外国大师的语言文化差异、没有啰嗦的废话，通俗易懂、内容丰富）：
 + 《解剖深度学习原理-从0编写深度学习库》
