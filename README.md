@@ -9,7 +9,7 @@
 - **[B站编程课程](https://space.bilibili.com/281453312/pugv)** **推荐**
 - [medium:](https://medium.com/@hwdong)
 
-## [B站课程](https://space.bilibili.com/281453312/pugv)
+## [B站课程](https://space.bilibili.com/281453312/pugv) 推荐
 
 ### 我写的3本书
 
