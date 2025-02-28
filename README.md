@@ -35,7 +35,7 @@
 ![](https://hwdong-net.github.io/imgs/py_1.jpg)
 ![](https://hwdong-net.github.io/imgs/py_2.jpg)
 
-+ 《现代C++编程实战：从入门到应用》电子版购买网址：[https://leanpub.com/cl01](https://leanpub.com/cl01) 。该书是在《C++17从入门到精通》基础上改编的，电子版内容会不断持续更新。
++ 《现代C++编程实战：从入门到应用》电子版购买网址：[https://leanpub.com/cl01](https://leanpub.com/cl01) 。该书是在《C++17从入门到精通》基础上改编的，电子版内容会不断持续更新。（请支持知识劳动成果）
 
 #### 高质量收费课程
 
