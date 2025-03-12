@@ -19,6 +19,7 @@ void hideCursor() {
 }
 
 
+
 int main() {
 	//1. 初始化游戏中的数据
 	auto WIDTH{ 90 }, HEIGHT{ 25 }; //窗口长宽
@@ -56,7 +57,7 @@ int main() {
 
 
 		// 2. 更新数据 	
-		std::string s1{std::to_string(score1) }, s2{ std::to_string(score2) };
+		std::string s1{ std::to_string(score1) }, s2{ std::to_string(score2) };
 
 		ball_x += ball_vec_x;
 		ball_y += ball_vec_y;
@@ -74,19 +75,26 @@ int main() {
 			ball_vec_x = -ball_vec_x;
 			score2 += 1;
 		}
-		bool is_out{ false };              //是否跑出沟渠的bool标志
-		if (ball_x < 0) { score2 += 1; is_out = true; }
-		else if (ball_x > WIDTH ) { score1 += 1; is_out = true; }
-		if (is_out) {                  //跑出左右沟渠，球回到中心并以新的随机速度出发
-			ball_x = WIDTH / 2; ball_y = HEIGHT / 2;
-			ball_vec_x = rand() % 5 + 1;
-			ball_vec_y = rand() % 5 + 1;
-			if (rand() % 2 == 1) ball_vec_x = -ball_vec_x;
-			if (rand() % 2 == 1) ball_vec_y = -ball_vec_y;
+		// 跑出左右沟渠，球回到中心并以新的随机速度出发
+		if (ball_x < 0 || ball_x > WIDTH) {
+			if (ball_x < 0) score2++;
+			else score1++;
+			ball_x = WIDTH / 2;
+			ball_y = HEIGHT / 2;
+			ball_vec_x = rand() % 3 + 1;
+			ball_vec_y = rand() % 3 + 1;
+
+			if (rand() % 2 == 1) {
+				ball_vec_x = -ball_vec_x;
+			}
+			if (rand() % 2 == 1) {
+				ball_vec_y = -ball_vec_y;
+			}
 		}
 
 		gotoxy(0, 0);  //定位到(0,0)，相当于清空屏幕
 		hideCursor();  //隐藏光标
+
 
 		//3. 绘制场景
 		//3.1绘制背景
