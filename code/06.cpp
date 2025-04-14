@@ -784,14 +784,10 @@ const float PI{3.1415926};
 void draw_sin_curve (int width,int height,int degree_step=5){
     
 	for (int degree = 0 ; degree <= 360 ; degree = degree + degree_step ){		
-		auto x = floor( degree/360.*width) +1;
-		auto y = floor( (sin(degree*PI/180)+1) * height/2)+1;
-		
+		auto x = floor( degree/360.*width) +1; //+1是为了防止x=0
+		auto y = floor( (sin(degree*PI/180)+1) * height/2)+1;	 //+1是为了防止y=0	
 		setPixel(x,y,'*');
 	}
-	//auto x = 1;
-	//auto y = SINEHEIGHT / 2+1 ;
-	//setPixel(x,y,'*');
 }
 int main(){	
     int width=50,height =40;
