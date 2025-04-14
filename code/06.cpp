@@ -781,8 +781,7 @@ int main() {
 #if 0
 #include <cmath>
 const float PI{3.1415926};
-void draw_sin_curve (int width,int height,int degree_step=5){
-    
+void draw_sin_curve (int width,int height,int degree_step=5){    
 	for (int degree = 0 ; degree <= 360 ; degree = degree + degree_step ){		
 		auto x = floor( degree/360.*width) +1; //+1是为了防止x=0
 		auto y = floor( (sin(degree*PI/180)+1) * height/2)+1;	 //+1是为了防止y=0	
@@ -854,11 +853,7 @@ int main() {
 #endif
 
 
-
-/*
-----优化屏幕刷新（屏幕绘制）函数----
-*/
-
+//============优化屏幕刷新（屏幕绘制）函数===================
 #include <iostream>
 
 using color = char;  // 定义表示颜色的类型，每种字符对应一种颜色
