@@ -856,3 +856,84 @@ int main() {
 #endif 
 
 #endif
+
+
+
+/*
+----优化屏幕刷新（屏幕绘制）函数----
+*/
+
+#include <iostream>
+
+using color = char;  // 定义表示颜色的类型，每种字符对应一种颜色
+color* framebuffer{ nullptr };  // 帧缓冲器指针
+int framebuffer_width, framebuffer_height, framebuffer_size;
+color clear_color{ ' ' };         // 清屏颜色
+
+// 初始化窗口，分配存储 width * height 个字符的内存，并用清屏颜色填充
+bool initWindow(int width, int height) {
+    framebuffer_size = (width + 1) * height;
+    framebuffer = new color[framebuffer_size]; // 预留换行符
+    if (!framebuffer) return false;
+    framebuffer_width = width;
+    framebuffer_height = height;
+
+    for (int y = 0; y < framebuffer_height; y++) {
+        framebuffer[y * (framebuffer_width + 1) + framebuffer_width] = '\n';
+    }
+    return true;
+}
+
+// 清空窗口：将帧缓冲器中每个像素设置为清屏颜色
+void clearWindow() {
+    for (auto y = 0; y != framebuffer_height; y++)
+        for (auto x = 0; x != framebuffer_width; x++)
+            framebuffer[y * (framebuffer_width + 1) + x] = clear_color;
+}
+
+// 销毁窗口，释放帧缓冲器占用的内存，并将指针置空
+void destroyWindow() {
+    delete[] framebuffer;
+    framebuffer = nullptr;
+}
+
+// 根据坐标 (x, y) 设置对应像素的颜色
+void setPixel(const int x, const int y, color c) {
+    framebuffer[y * (framebuffer_width + 1) + x] = c;
+}
+
+// 根据坐标 (x, y) 获取对应像素的颜色
+color getPixel(const int x, const int y) {
+    return framebuffer[y * (framebuffer_width + 1) + x];
+}
+
+// 设置和获取清屏颜色
+void set_clear_color(color c) { clear_color = c; }
+color get_clear_color() { return clear_color; }
+
+void show() {
+    fwrite(framebuffer, 1, (framebuffer_width + 1) * framebuffer_height, stdout);
+    fflush(stdout);
+}
+
+// 测试代码
+int main() {
+    if (!initWindow(25, 15)) {
+        return 1;
+    }
+    set_clear_color('-');
+    clearWindow();
+
+    int x{ 10 }, y{ 10 };
+
+    setPixel(x, y, '*');
+
+    setPixel(x - 1, y + 1, '*'); setPixel(x, y + 1, ' ');
+    setPixel(x + 1, y + 1, '*');
+
+    setPixel(x - 2, y + 2, '*'); setPixel(x - 1, y + 2, ' ');
+    setPixel(x, y + 2, '*'); setPixel(x + 1, y + 2, ' ');
+    setPixel(x + 2, y + 2, '*');
+    show();
+}
+
