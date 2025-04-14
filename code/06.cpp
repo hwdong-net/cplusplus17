@@ -780,26 +780,26 @@ int main() {
 
 #if 0
 #include <cmath>
-//#define SINEHEIGHT  20
-//#define DEGREESTEP  5
-void draw_sin_curve(const int SINEHEIGHT = 20, const int DEGREESTEP = 5) {
-    for (int degree = 0; degree < 361; degree = degree + DEGREESTEP) {
-        auto x = floor((degree / DEGREESTEP) + 0.5) + 1;
-        auto y = floor(sin(degree * 3.141 / 180) * (SINEHEIGHT / 2) + 0.5)
-            + SINEHEIGHT / 2 + 1;
-
-        setPixel(x, y, '*');
-    }
-    auto x = 1;
-    auto y = SINEHEIGHT / 2 + 1;
-    setPixel(x, y, '*');
+const float PI{3.1415926};
+void draw_sin_curve (int width,int height,int degree_step=5){
+    
+	for (int degree = 0 ; degree <= 360 ; degree = degree + degree_step ){		
+		auto x = floor( degree/360.*width) +1;
+		auto y = floor( (sin(degree*PI/180)+1) * height/2)+1;
+		
+		setPixel(x,y,'*');
+	}
+	//auto x = 1;
+	//auto y = SINEHEIGHT / 2+1 ;
+	//setPixel(x,y,'*');
 }
-int main() {
-    if (!initWindow(70, 30)) {
-        return 1;
-    }
-    draw_sin_curve();
-    show();
+int main(){	
+    int width=50,height =40;
+	if(!initWindow(width,height)){		
+		return 1;
+	}
+	draw_sin_curve(width,height-2);
+	show();	
 }
 #endif
 
