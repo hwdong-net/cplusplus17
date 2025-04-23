@@ -1,3 +1,6 @@
+#ifndef ChGL_HPP
+#define ChGL_HPP
+
 #include <iostream>
 #include <thread>
 #include <chrono>
