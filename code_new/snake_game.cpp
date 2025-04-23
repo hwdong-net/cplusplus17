@@ -1,3 +1,95 @@
+#ifdef  version_0
+#include "ChGL.hpp"
+
+
+class Snake;
+class Egg;
+class BackGround {
+    color top_color{ '*' }, bottom_color{ '*' }, side_color{ '|' };
+public:
+    void draw(ChGL& window) {
+        auto w = window.getWidth();
+        auto h = window.getHeight();
+        int right = w - 1;
+        int bottom = h - 1;
+        for (int x = 0; x < w; x++) {
+            window.setPixel(x, 0, top_color);
+            window.setPixel(x, bottom, bottom_color);
+        }
+        auto mid_x = (w - 1) / 2;
+        for (int y = 1; y < bottom; y++) {
+            window.setPixel(0, y, side_color);
+            window.setPixel(mid_x, y, side_color);
+            window.setPixel(right, y, side_color);
+        }
+    }
+};
+
+class GameEngine {
+    ChGL* window{ nullptr };
+    BackGround bg;         // 游戏画布
+    Snake* snake{ nullptr }; // 蛇
+    Egg* egg{ nullptr };     // 鸡蛋
+    bool running{ true };
+    //bool start{false};
+    InputHandler input;
+public:
+    GameEngine(int w = 50, int h = 20);
+    ~GameEngine() {
+        if (window) delete window;
+    }
+    void run() {
+        while (running) {
+            processEvent();
+            update();
+            collision();
+            render();
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+    }
+private:
+    void processEvent();
+    void update();
+    void collision();
+    void drawScene();
+    void render() {
+        if (!running or !window) return;
+        window->clear();
+        drawScene();
+        window->show();
+    }
+};
+GameEngine::GameEngine( int w,  int h) {
+    window = new ChGL(w, h);
+};
+void GameEngine::processEvent() {}
+void GameEngine::update() {}
+void GameEngine::collision() {}
+void GameEngine::drawScene() {
+    bg.draw(*window);
+}
+
+#include <chrono>
+#include <random>
+class Random {
+    std::mt19937 rng;
+public:
+    Random() : rng(std::random_device{}()) {}
+    int get(int min, int max) {
+        std::uniform_int_distribution<int> dist(min, max);
+        return dist(rng);
+    }
+};
+int main() {
+    GameEngine game;
+    game.run();
+}
+#endif
+
+
+
+
+
 #include <iostream>
 #include <thread>
 #include <chrono>
