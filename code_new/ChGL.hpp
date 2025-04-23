@@ -96,10 +96,38 @@ private:
     int width;                   // 窗口宽度
     int height;                  // 窗口高度
     color clear_color;           // 清屏颜色
-    CursorController cursor;     // 光标控制器
+    CursorController cursor;     // 光标控制器 
 
-    // 私有方法：跨平台显示帧缓冲区
-    void displayFrame() {
+public:
+    ChGL(int w, int h, color clear_color = ' ') : clear_color(clear_color) {
+        framebuffer = new color[w * h];
+        if (!framebuffer) return;
+        width = w;
+        height = h;
+        clear();
+        cursor.hideCursor(); // 初始化时隐藏光标
+    }
+
+    ~ChGL() {
+        // 销毁窗口
+        if (framebuffer) {
+            delete[] framebuffer;
+            framebuffer = nullptr;
+        }
+        width = 0;
+        height = 0;
+        cursor.showCursor(); // 销毁时恢复光标
+    }
+
+    // 清空窗口
+    void clear() {
+        auto frame_size = width * height;
+        for (int k = 0; k != frame_size; k++)
+            framebuffer[k] = clear_color;
+    }
+
+    // 显示帧缓冲区
+    void show() {
 #ifdef _WIN32
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
         DWORD written;
@@ -119,49 +147,6 @@ private:
             write(STDOUT_FILENO, "\n", 1);
         }
 #endif
-    }
-
-public:
-    ChGL() : framebuffer(nullptr), width(0), height(0), clear_color(' ') {
-        cursor.hideCursor(); // 初始化时隐藏光标
-    }
-
-    ~ChGL() {
-        destroy();
-    }
-
-    // 初始化窗口
-    bool init(int w, int h) {
-        if (framebuffer) return false; // 防止重复初始化
-        width = w;
-        height = h;
-        framebuffer = new color[w * h];
-        if (!framebuffer) return false;
-        clear();
-        return true;
-    }
-
-    // 清空窗口
-    void clear() {
-        for (int y = 0; y < height; y++)
-            for (int x = 0; x < width; x++)
-                framebuffer[y * width + x] = clear_color;
-    }
-
-    // 销毁窗口
-    void destroy() {
-        if (framebuffer) {
-            delete[] framebuffer;
-            framebuffer = nullptr;
-        }
-        width = 0;
-        height = 0;
-        cursor.showCursor(); // 销毁时恢复光标
-    }
-
-    // 显示帧缓冲区
-    void show() {
-        displayFrame();
     }
 
     // 设置像素
