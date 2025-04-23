@@ -150,7 +150,7 @@ public:
     }
 
     // 设置像素
-    void setPixel(int x, int y, color c = ' ') {
+    void setPixel(int x, int y, Color c = ' ') {
         if (x >= 0 && x < width && y >= 0 && y < height)
             framebuffer[y * width + x] = c;
     }
@@ -167,7 +167,7 @@ public:
         clear_color = c;
     }
 
-    color getClearColor() const {
+    Color getClearColor() const {
         return clear_color;
     }
 
