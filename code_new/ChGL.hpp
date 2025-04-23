@@ -16,7 +16,7 @@
 #endif
 
 // 定义颜色类型（字符表示）
-using color = char;
+using Color = char;
 
 // 光标控制类
 class CursorController {
@@ -156,14 +156,14 @@ public:
     }
 
     // 获取像素
-    color getPixel(int x, int y) {
+    Color getPixel(int x, int y) {
         if (x >= 0 && x < width && y >= 0 && y < height)
             return framebuffer[y * width + x];
         return clear_color;
     }
 
     // 设置/获取清屏颜色
-    void setClearColor(color c) {
+    void setClearColor(Color c) {
         clear_color = c;
     }
 
