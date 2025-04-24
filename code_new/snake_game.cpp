@@ -1,11 +1,7 @@
-#ifdef  version_0
 #include "ChGL.hpp"
 
-
-class Snake;
-class Egg;
 class BackGround {
-    color top_color{ '*' }, bottom_color{ '*' }, side_color{ '|' };
+    Color top_color{ ' ' }, bottom_color{ '_' }, side_color{ '|' };
 public:
     void draw(ChGL& window) {
         auto w = window.getWidth();
@@ -15,15 +11,21 @@ public:
         for (int x = 0; x < w; x++) {
             window.setPixel(x, 0, top_color);
             window.setPixel(x, bottom, bottom_color);
-        }
-        auto mid_x = (w - 1) / 2;
-        for (int y = 1; y < bottom; y++) {
-            window.setPixel(0, y, side_color);
-            window.setPixel(mid_x, y, side_color);
+        }      
+        for (int y = 0; y < h; y++) {
+            window.setPixel(0, y, side_color);          
             window.setPixel(right, y, side_color);
         }
     }
 };
+
+class Snake;
+class Egg;
+
+//#define version_bg
+#ifdef version_bg
+class Snake;
+class Egg;
 
 class GameEngine {
     ChGL* window{ nullptr };
@@ -31,7 +33,7 @@ class GameEngine {
     Snake* snake{ nullptr }; // 蛇
     Egg* egg{ nullptr };     // 鸡蛋
     bool running{ true };
-    //bool start{false};
+    bool start{ false };
     InputHandler input;
 public:
     GameEngine(int w = 50, int h = 20);
@@ -59,7 +61,7 @@ private:
         window->show();
     }
 };
-GameEngine::GameEngine( int w,  int h) {
+GameEngine::GameEngine(const int w, const int h) {
     window = new ChGL(w, h);
 };
 void GameEngine::processEvent() {}
@@ -69,91 +71,10 @@ void GameEngine::drawScene() {
     bg.draw(*window);
 }
 
-#include <chrono>
-#include <random>
-class Random {
-    std::mt19937 rng;
-public:
-    Random() : rng(std::random_device{}()) {}
-    int get(int min, int max) {
-        std::uniform_int_distribution<int> dist(min, max);
-        return dist(rng);
-    }
-};
-int main() {
-    GameEngine game;
-    game.run();
-}
 #endif
 
-
-
+//#define version_egg_snake
 #ifdef version_egg_snake
-#include "ChGL.hpp"
-
-
-class Snake;
-class Egg;
-class BackGround {
-    Color top_color{ '*' }, bottom_color{ '*' }, side_color{ '|' };
-public:
-    void draw(ChGL& window) {
-        auto w = window.getWidth();
-        auto h = window.getHeight();
-        int right = w - 1;
-        int bottom = h - 1;
-        for (int x = 0; x < w; x++) {
-            window.setPixel(x, 0, top_color);
-            window.setPixel(x, bottom, bottom_color);
-        }
-        auto mid_x = (w - 1) / 2;
-        for (int y = 1; y < bottom; y++) {
-            window.setPixel(0, y, side_color);
-            window.setPixel(mid_x, y, side_color);
-            window.setPixel(right, y, side_color);
-        }
-    }
-};
-
-class GameEngine {
-    ChGL* window{ nullptr };
-    BackGround bg;         // 游戏画布
-    Snake* snake{ nullptr }; // 蛇
-    Egg* egg{ nullptr };     // 鸡蛋
-    bool running{ true };
-    //bool start{false};
-    InputHandler input;
-public:
-    GameEngine(int w = 50, int h = 20);
-    ~GameEngine() {
-        if (window) delete window;
-    }
-    void run() {
-        while (running) {
-            processEvent();
-            update();
-            collision();
-            render();
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        }
-    }
-private:
-    void processEvent();
-    void update();
-    void collision();
-    void drawScene();
-    void render() {
-        if (!running or !window) return;
-        window->clear();
-        drawScene();
-        window->show();
-    }
-};
-
-void GameEngine::processEvent() {}
-void GameEngine::update() {}
-void GameEngine::collision() {}
-
 
 #include <chrono>
 #include <random>
@@ -166,7 +87,6 @@ public:
         return dist(rng);
     }
 };
-
 
 class Egg {
     int x, y;
@@ -216,9 +136,9 @@ class Snake {
     SnakeNode* head{ nullptr }, * tail{ nullptr };
     int direction{ 0 }; // 0:上, 1:下, 2:左, 3:右
     Color body_color{ 'o' }, head_color{ '@' };
-    bool is_dead{ false };
-    int width{ 0 }, height{ 0 };
+    bool dead{ false };
     bool eating{ false };
+    int width{ 0 }, height{ 0 };
     Random rand; // 随机数生成器    
 public:
     //初始化窗口范围[width，height]里指定长度的一条蛇
@@ -237,10 +157,11 @@ public:
     SnakeNode* get_tail() { return tail; } //返回链表的尾结点
     Color get_body_color() { return body_color; }
     Color get_head_color() { return head_color; }
+    bool is_dead() { return dead; }
 };
 
 Snake::Snake(int width, int height, int length, Color body_color, Color head_color)
-    :width{ width},height{ height }, body_color{ body_color }, head_color{ head_color } {
+    :width{ width }, height{ height }, body_color{ body_color }, head_color{ head_color } {
     int x_min = length + 1, x_max = width - x_min;
     int y_min = length + 1, y_max = height - y_min;
     //生成随机的蛇的位置
@@ -250,11 +171,12 @@ Snake::Snake(int width, int height, int length, Color body_color, Color head_col
     tail = new SnakeNode(Position(x, y));
     head = new SnakeNode(Position(), tail);
     direction = rand.get(0, 3);
+    //蛇的前进方向正好与蛇头到蛇尾的方向相反
     for (int i = 1; i < length; i++) {
-        if (direction == 0) y--;
-        else if (direction == 1) y++;
-        else if (direction == 2) x--;
-        else x++;
+        if (direction == 0) y++;      //蛇头向上，蛇身向下
+        else if (direction == 1) y--; //蛇头向下，蛇身向上
+        else if (direction == 2) x++; //蛇头向左，蛇身向右
+        else x--;                     //蛇头向右，蛇身向左
         SnakeNode* p = new SnakeNode(Position(x, y), head->get_next());
         head->set_next(p);
     }
@@ -271,81 +193,6 @@ void Snake::draw(ChGL& window) {
         p->get_pos().get_y(), head_color);
 }
 
-void Snake::eat(bool eating) {
-    this->eating = eating;
-}
-
-void Snake::move() {
-    if (is_dead) return;
-    Position head_pos = tail->get_pos(); //当前蛇头位置，注意：链表尾部表示蛇头
-    int x = head_pos.get_x(), y = head_pos.get_y();
-    if (direction == 0) y--;       //向上移动，y--
-    else if (direction == 1) y++;  //向下移动，y++
-    else if (direction == 2) x--;   //左键-->向左移动,x--
-    else x++;                       //右键-->向右移动，
-    if (x <= 0 || x >= width - 1 || y <= 0 || y >= height - 1) {
-        is_dead = true;
-        return;
-    }
-    //创建新的蛇头，加入到链表的尾部。
-    SnakeNode* p = new SnakeNode(Position(x, y));//创建新的结点
-    tail->set_next(p); //p加到尾结点(tail)的后面，即蛇头结点的后面
-    tail = p; // p成为新的链表尾结点。即p成为了新蛇头结点
-    if (!eating) {//如果没有吃鸡蛋，则删除蛇尾结点
-        p = head->get_next();
-        head->set_next(p->get_next());
-        delete p;
-    }
-    else {
-        //否则，正吃了一个鸡蛋，不用删除蛇尾结点。但应清空吃蛋标志
-        eating = false;
-    }
-}
-
-GameEngine::GameEngine(int w, int h) {
-    window = new ChGL(w, h);
-    snake = new Snake(w, h, 4);
-    egg = new Egg(w, h);
-}
-
-void GameEngine::drawScene() {
-    bg.draw(*window);
-    if (snake) snake->draw(*window);
-    if (egg) egg->draw(*window);
-}
-
-
-int main() {
-    GameEngine game;
-    game.run();
-}
-#endif
-
-
-
-#include "ChGL.hpp"
-
-
-class Snake;
-class Egg;
-class BackGround {
-    Color top_color{ ' ' }, bottom_color{ '_' }, side_color{ '|' };
-public:
-    void draw(ChGL& window) {
-        auto w = window.getWidth();
-        auto h = window.getHeight();
-        int right = w - 1;
-        int bottom = h - 1;
-        for (int x = 0; x < w; x++) {
-            window.setPixel(x, 0, top_color);
-            window.setPixel(x, bottom, bottom_color);
-        }      
-        for (int y = 0; y < h; y++) {
-            window.setPixel(0, y, side_color);          
-            window.setPixel(right, y, side_color);
-        }
-    }
-};
 
 class GameEngine {
     ChGL* window{ nullptr };
@@ -353,7 +200,7 @@ class GameEngine {
     Snake* snake{ nullptr }; // 蛇
     Egg* egg{ nullptr };     // 鸡蛋
     bool running{ true };
-    bool start{false};
+    bool start{ false };
     InputHandler input;
 public:
     GameEngine(int w = 50, int h = 20);
@@ -381,10 +228,26 @@ private:
         window->show();
     }
 };
+GameEngine::GameEngine(int w, int h) {
+    window = new ChGL(w,h);   
+    snake = new Snake(w, h, 4);
+    egg = new Egg(w, h);
+}
+void GameEngine::processEvent() {}
+void GameEngine::update() {}
+void GameEngine::collision() {}
+void GameEngine::drawScene() {
+    bg.draw(*window);
+    if (snake) snake->draw(*window);
+    if (egg) egg->draw(*window);
+}
 
 
+#endif
 
 
+#define version_final
+#ifdef version_final
 
 #include <chrono>
 #include <random>
@@ -450,7 +313,7 @@ class Snake {
     bool dead{ false };
     int width{ 0 }, height{ 0 };
     bool eating{ false };
-   
+
     Random rand; // 随机数生成器    
 public:
     //初始化窗口范围[width，height]里指定长度的一条蛇
@@ -473,7 +336,7 @@ public:
 };
 
 Snake::Snake(int width, int height, int length, Color body_color, Color head_color)
-    :width{ width},height{ height }, body_color{ body_color }, head_color{ head_color } {
+    :width{ width }, height{ height }, body_color{ body_color }, head_color{ head_color } {
     int x_min = length + 1, x_max = width - x_min;
     int y_min = length + 1, y_max = height - y_min;
     //生成随机的蛇的位置
@@ -482,15 +345,18 @@ Snake::Snake(int width, int height, int length, Color body_color, Color head_col
 
     tail = new SnakeNode(Position(x, y));
     head = new SnakeNode(Position(), tail);
-    auto d = rand.get(0, 4);
+
+    direction = rand.get(0, 3);
+    //蛇的前进方向正好与蛇头到蛇尾的方向相反
     for (int i = 1; i < length; i++) {
-        if (d == 0) y++;
-        else if (d == 1) y--;
-        else if (d == 2) x++;
-        else x--;
+        if (direction == 0) y++;      //蛇头向上，蛇身向下
+        else if (direction == 1) y--; //蛇头向下，蛇身向上
+        else if (direction == 2) x++; //蛇头向左，蛇身向右
+        else x--;                     //蛇头向右，蛇身向左
         SnakeNode* p = new SnakeNode(Position(x, y), head->get_next());
         head->set_next(p);
     }
+
 }
 
 void Snake::draw(ChGL& window) {
@@ -534,6 +400,41 @@ void Snake::move() {
         eating = false;
     }
 }
+
+class GameEngine {
+    ChGL* window{ nullptr };
+    BackGround bg;         // 游戏画布
+    Snake* snake{ nullptr }; // 蛇
+    Egg* egg{ nullptr };     // 鸡蛋
+    bool running{ true };
+    bool start{false};
+    InputHandler input;
+public:
+    GameEngine(int w = 50, int h = 20);
+    ~GameEngine() {
+        if (window) delete window;
+    }
+    void run() {
+        while (running) {
+            processEvent();
+            update();
+            collision();
+            render();
+            std::this_thread::sleep_for(std::chrono::milliseconds(300));
+        }
+    }
+private:
+    void processEvent();
+    void update();
+    void collision();
+    void drawScene();
+    void render() {
+        if (!running or !window) return;
+        window->clear();
+        drawScene();
+        window->show();
+    }
+};
 
 GameEngine::GameEngine(int w, int h) {
     window = new ChGL(w, h);
@@ -607,7 +508,10 @@ void GameEngine::collision() {
     }
 }
 
+#endif
+
 int main() {
     GameEngine game;
     game.run();
 }
+
