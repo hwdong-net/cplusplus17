@@ -92,15 +92,15 @@ public:
 // 核心图形库类
 class ChGL {
 private:
-    color* framebuffer;          // 帧缓冲区
+    Color* framebuffer;          // 帧缓冲区
     int width;                   // 窗口宽度
     int height;                  // 窗口高度
-    color clear_color;           // 清屏颜色
+    Color clear_color;           // 清屏颜色
     CursorController cursor;     // 光标控制器 
 
 public:
-    ChGL(int w, int h, color clear_color = ' ') : clear_color(clear_color) {
-        framebuffer = new color[w * h];
+    ChGL(int w, int h, Color clear_color = ' ') : width{ w }, height{h},clear_color(clear_color) {
+        framebuffer = new Color[w * h];
         if (!framebuffer) return;
         width = w;
         height = h;
@@ -119,7 +119,7 @@ public:
         cursor.showCursor(); // 销毁时恢复光标
     }
 
-    // 清空窗口
+    // 清空帧缓冲区
     void clear() {
         auto frame_size = width * height;
         for (int k = 0; k != frame_size; k++)
@@ -128,8 +128,9 @@ public:
 
     // 显示帧缓冲区
     void show() {
-#ifdef _WIN32
+#ifdef _WIN32       
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleCursorPosition(hConsole, COORD{ 0,0 });// 将光标移动到 (0,0)
         DWORD written;
         for (int y = 0; y < height; y++) {
             WriteConsoleOutputCharacterA(
@@ -141,6 +142,7 @@ public:
             );
         }
 #else
+        //std::cout << "\033[H";  // 将光标移动到 (0,0)
         write(STDOUT_FILENO, "\033[H\033[J", 6); // 清屏并移动光标
         for (int y = 0; y < height; y++) {
             write(STDOUT_FILENO, &framebuffer[y * width], width);
