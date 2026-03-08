@@ -3,6 +3,14 @@
 #include <random>
 #include <thread>
 
+// 随机数生成函数
+int random_int(int min, int max) {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(min, max);
+    return dis(gen);
+}
+
 using Window = ChGL;         // Window 是 ChGL 的别名
 
 // 颜色常量（字符表示）
@@ -327,13 +335,7 @@ public:
     }
 };
 
-// 随机数生成函数
-int random_int(int min, int max) {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(min, max);
-    return dis(gen);
-}
+
 
 // 增加敌机的智能行为（重写 update）
 #include <chrono>
@@ -368,3 +370,4 @@ int main() {
     game.run();
     return 0;
 }
+
