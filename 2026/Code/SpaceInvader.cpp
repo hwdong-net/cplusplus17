@@ -1,16 +1,17 @@
-#include <iostream>
+#include "ChGL.hpp"          // 第8章图形库，包含 ChGL 和 InputHandler
 #include <chrono>
 #include <random>
 #include <thread>
-#include "ChGL.hpp"  // 包含第8章的图形库头文件
 
-// 定义颜色常量（字符）
-constexpr char PLAYER_COLOR = '@';
-constexpr char ENEMY_COLOR = 'E';
-constexpr char BULLET_COLOR = '*';
-constexpr char BACKGROUND = ' ';
+using Window = ChGL;         // Window 是 ChGL 的别名
 
-// 向量类（二维点）
+// 颜色常量（字符表示）
+constexpr Color PLAYER_COLOR = '@';
+constexpr Color ENEMY_COLOR = 'E';
+constexpr Color BULLET_COLOR = '*';
+constexpr Color BACKGROUND = ' ';
+
+// 辅助类 Vector2
 class Vector2 {
 public:
     int x, y;
@@ -19,7 +20,7 @@ public:
     Vector2& operator+=(const Vector2& v) { x += v.x; y += v.y; return *this; }
 };
 
-// 矩形类（用于碰撞检测）
+// 矩形类 Rect
 class Rect {
 public:
     Vector2 pos;   // 左上角坐标
@@ -33,10 +34,11 @@ public:
     }
 };
 
-// 自定义动态数组 Vector（存储精灵指针，不负责释放）
-class Sprite;  // 前向声明
+// 前向声明
+class Sprite;
 using ElemType = Sprite*;
 
+// 自定义动态数组 Vector
 class Vector {
     ElemType* data_;
     int capacity_, size_;
@@ -50,7 +52,7 @@ class Vector {
     }
 public:
     Vector(int cap = 5) : data_(new ElemType[cap]), capacity_(cap), size_(0) {}
-    ~Vector() { delete[] data_; }
+    ~Vector() { delete[] data_; }  // 只释放数组，不释放元素
     bool push_back(const ElemType& e) {
         if (size_ == capacity_) expand();
         data_[size_++] = e;
@@ -68,24 +70,16 @@ public:
     bool empty() const { return size_ == 0; }
 };
 
-// 随机数生成函数
-int random_int(int min, int max) {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(min, max);
-    return dis(gen);
-}
-
-// 精灵基类
+// 精灵基类 Sprite
 class Sprite {
 protected:
-    ChGL* window_;
+    Window* window_;
     Vector2 pos_, vel_, size_;
-    char color_;
+    Color color_;
     int lives_;
     Rect rect_;
 public:
-    Sprite(ChGL* w, char c, Vector2 p, Vector2 v = {0,0}, Vector2 s = {1,1}, int lives = 1)
+    Sprite(Window* w, Color c, Vector2 p, Vector2 v = {0,0}, Vector2 s = {1,1}, int lives = 1)
         : window_(w), pos_(p), vel_(v), size_(s), color_(c), lives_(lives),
           rect_({p.x - s.x/2, p.y - s.y/2}, s) {}
     virtual ~Sprite() = default;
@@ -101,20 +95,20 @@ public:
     bool collide(const Rect& other) const { return rect_.collide(other); }
 };
 
-// 子弹类
+// 子弹类 Bullet
 class Bullet : public Sprite {
 public:
-    Bullet(ChGL* w, char c, Vector2 p, Vector2 v) : Sprite(w, c, p, v) {}
-    void draw() override { window_->setPixel(pos_.x, pos_.y, color_); }
+    Bullet(Window* w, Color c, Vector2 p, Vector2 v) : Sprite(w, c, p, v) {}
+    void draw() override { window_->set_pixel(pos_.x, pos_.y, color_); }
 };
 
-// 战机基类（具备射击能力）
+// 战机基类 Fighter
 class Fighter : public Sprite {
 protected:
-    Bullet* bullet_{nullptr};
+    Bullet* bullet_;
 public:
-    Fighter(ChGL* w, char c, Vector2 p, Vector2 v = {0,0}, Vector2 s = {1,1}, int lives = 1)
-        : Sprite(w, c, p, v, s, lives) {}
+    Fighter(Window* w, Color c, Vector2 p, Vector2 v = {0,0}, Vector2 s = {1,1}, int lives = 1)
+        : Sprite(w, c, p, v, s, lives), bullet_(nullptr) {}
     virtual Bullet* shoot(Vector2 vel) {
         Vector2 bulletPos(pos_.x, pos_.y - size_.y/2);
         bullet_ = new Bullet(window_, BULLET_COLOR, bulletPos, vel);
@@ -127,59 +121,59 @@ public:
     }
 };
 
-// 玩家战机类
+// 玩家战机类 Player
 class Player : public Fighter {
 public:
-    Player(ChGL* w, char c, Vector2 p) : Fighter(w, c, p, {0,0}, {3,3}, 1) {}
+    Player(Window* w, Color c, Vector2 p) : Fighter(w, c, p, {0,0}, {3,3}, 1) {}
     void move(Vector2 delta) {
         int x = pos_.x + delta.x;
         int y = pos_.y + delta.y;
-        if (x >= size_.x/2 && x < window_->getWidth() - size_.x/2 - 1) pos_.x = x;
-        if (y >= size_.y/2 && y < window_->getHeight() - size_.y/2 - 1) pos_.y = y;
+        if (x >= size_.x/2 && x < window_->get_width() - size_.x/2 - 1) pos_.x = x;
+        if (y >= size_.y/2 && y < window_->get_height() - size_.y/2 - 1) pos_.y = y;
     }
     void draw() override {
         int x = pos_.x, y = pos_.y;
-        window_->setPixel(x, y-1, color_);
-        window_->setPixel(x-1, y, color_);
-        window_->setPixel(x, y, color_);
-        window_->setPixel(x+1, y, color_);
-        window_->setPixel(x-1, y+1, color_);
-        window_->setPixel(x+1, y+1, color_);
+        window_->set_pixel(x, y-1, color_);
+        window_->set_pixel(x-1, y, color_);
+        window_->set_pixel(x, y, color_);
+        window_->set_pixel(x+1, y, color_);
+        window_->set_pixel(x-1, y+1, color_);
+        window_->set_pixel(x+1, y+1, color_);
     }
 };
 
-// 敌机类（基础版本）
+// 敌机类 Enemy（基础版本，后面会添加智能行为）
 class Enemy : public Fighter {
 public:
-    Enemy(ChGL* w, char c, Vector2 p) : Fighter(w, c, p, {0,1}, {3,3}, 1) {}
+    Enemy(Window* w, Color c, Vector2 p) : Fighter(w, c, p, {0,1}, {3,3}, 1) {}
     void draw() override {
         int x = pos_.x, y = pos_.y;
-        window_->setPixel(x-2, y-1, color_);
-        window_->setPixel(x, y-1, color_);
-        window_->setPixel(x+2, y-1, color_);
-        window_->setPixel(x-1, y, color_);
-        window_->setPixel(x+1, y, color_);
-        window_->setPixel(x, y+1, color_);
+        window_->set_pixel(x-2, y-1, color_);
+        window_->set_pixel(x, y-1, color_);
+        window_->set_pixel(x+2, y-1, color_);
+        window_->set_pixel(x-1, y, color_);
+        window_->set_pixel(x+1, y, color_);
+        window_->set_pixel(x, y+1, color_);
     }
 };
 
-// 背景类（空实现）
+// 背景类（简单）
 class BackGround {
 public:
-    void draw(ChGL& w) const {}
+    void draw(Window& w) const { /* 可绘制简单背景，留空 */ }
 };
 
-// 游戏引擎基类
+// 游戏引擎基类 GameEngine
 class GameEngine {
 protected:
-    ChGL* window_;
-    Vector sprites_;      // 所有精灵的唯一拥有者
+    Window* window_;
+    Vector sprites_;
     bool running_;
     BackGround* bg_;
-    InputHandler input_;  // 输入处理器
+    InputHandler input_;
 public:
     GameEngine(int w = 80, int h = 30)
-        : window_(new ChGL(w, h, BACKGROUND)), running_(true), bg_(new BackGround()) {}
+        : window_(new Window(w, h, BACKGROUND)), running_(true), bg_(new BackGround()) {}
     virtual ~GameEngine() {
         for (int i = 0; i < sprites_.size(); ++i) delete sprites_[i];
         delete window_;
@@ -191,14 +185,14 @@ public:
             update();
             collision();
             render();
-            std::this_thread::sleep_for(std::chrono::milliseconds(50)); // 控制帧率
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
         }
         quit();
     }
     virtual void processEvent() {
         if (input_.kbhit()) {
             char key = input_.getch();
-            if (key == 27) running_ = false;  // ESC键退出
+            if (key == 27) running_ = false;
         }
     }
     virtual void update() {
@@ -206,6 +200,7 @@ public:
     }
     virtual void collision() {}  // 派生类实现
     virtual void render() {
+        if (!running_ || !window_) return;
         window_->clear();
         drawScene();
         window_->show();
@@ -217,7 +212,7 @@ public:
     virtual void quit() {}
 };
 
-// 雷电战机游戏类
+// 雷电战机游戏类 SpaceInvader
 #define KEY_UP 72
 #define KEY_DOWN 80
 #define KEY_LEFT 75
@@ -243,8 +238,8 @@ public:
     void processEvent() override {
         if (input_.kbhit()) {
             char key = input_.getch();
-            if (key == 27) running_ = false;
-            else if (key == ' ') {
+            if (key == 27) { running_ = false; return; }
+            if (key == ' ') {
                 Bullet* b = player_->shoot({0, -1});
                 sprites_.push_back(b);
                 bullets_.push_back(b);
@@ -258,7 +253,6 @@ public:
 
     void update() override {
         GameEngine::update();
-        // 收集敌机发射的子弹
         for (int i = 0; i < enemies_.size(); ++i) {
             Enemy* e = static_cast<Enemy*>(enemies_[i]);
             Bullet* b = e->get_bullet();
@@ -333,9 +327,16 @@ public:
     }
 };
 
+// 随机数生成函数
+int random_int(int min, int max) {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(min, max);
+    return dis(gen);
+}
+
 // 增加敌机的智能行为（重写 update）
 #include <chrono>
-
 void Enemy::update() {
     static auto lastShotTime = std::chrono::high_resolution_clock::now();
     static auto lastMoveTime = lastShotTime;
