@@ -10,7 +10,7 @@
 - [medium:](https://medium.com/@hwdong)
 
 
-### 我写的4本书
+### 我写的5本书
 
    （没有外国大师的语言文化差异、没有啰嗦的废话，通俗易懂、内容丰富）：
 + 《解剖深度学习原理-从0编写深度学习库》
@@ -35,7 +35,11 @@
 ![](https://hwdong-net.github.io/imgs/py_1.jpg)
 ![](https://hwdong-net.github.io/imgs/py_2.jpg)
 
-+ 《现代C++编程实战：从入门到应用》电子版购买网址：[https://leanpub.com/cl01](https://leanpub.com/cl01) 。该书是在《C++17从入门到精通》基础上改编的，电子版内容会不断持续更新。（请支持知识劳动成果）
++ 《现代C++编程实战》2026版：[https://leanpub.com/c01](https://leanpub.com/c01) 。该书是在《C++17从入门到精通》基础上改编的，电子版内容会不断持续更新。（请支持知识劳动成果）
+  ![](https://hwdong-net.github.io/imgs/modern_cpp.png)
+
++ 《算法设计与分析》2026版：[https://leanpub.com/daa](https://leanpub.com/daa) 
+ ![](https://hwdong-net.github.io/imgs/daa.png)
 
 #### 高质量收费课程
 
