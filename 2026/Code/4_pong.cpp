@@ -1,4 +1,5 @@
-﻿#include <iostream>
+//《现代C++编程实战》第4章实战项目之二：Pong游戏
+#include <iostream>
 #include <random>
 #include <thread>
 #include <chrono>
