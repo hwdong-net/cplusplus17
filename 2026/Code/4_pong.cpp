@@ -1,4 +1,5 @@
 //《现代C++编程实战》第4章实战项目之二：Pong游戏
+
 #include <iostream>
 #include <random>
 #include <thread>
@@ -93,6 +94,8 @@ int main() {
     // 创建一个字符数组来缓存整个画面
     std::string framebuffer(HEIGHT * (WIDTH + 1), ' '); // 包括换行符
 
+    hide_cursor();  //隐藏光标
+
     // 游戏循环
     while (true) {
         // 1. 处理事件
@@ -113,6 +116,10 @@ int main() {
             }
             else if (key == 80 && paddle2_y + paddle2_vec + paddle_h < HEIGHT) { // 80 是向下箭头键的 ASCII 码
                 paddle2_y += paddle2_vec;
+            }
+            // 按 q 退出游戏
+            else if (key == 'q' || key == 'Q') {
+                break;
             }
         }
 
